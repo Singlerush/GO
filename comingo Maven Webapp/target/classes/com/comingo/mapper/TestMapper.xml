@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.comingo.mapper.TestMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.comingo.domain.Test" id="testRM">
+		<!-- 主键 -->
+		<id property="id" column="test_id"/>
+		<!-- 一般属性 -->
+		<result property="username" column="username"/>
+		<result property="remark" column="remark"/>
+		<result property="createTime" column="createTime"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.comingo.domain.Test">
+		insert into test (test_id,username,remark,createTime)
+		values 
+		(	#{id},
+			#{username},
+			#{remark},
+			#{createTime}
+		)
+	</insert>
+	<!-- 查看 -->
+	<select id="get" parameterType="string" resultMap="testRM" >
+		select * from test
+		where test_id = #{id}
+	</select>
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="string">
+		delete from test
+		where test_id = #{id}
+	</delete>
+	<!-- 更新 -->
+	<update id="update" parameterType="com.comingo.domain.Test">
+		update test
+		<set>
+			<if test="username != null">username=#{username},</if>
+			<if test="remark != null">remark=#{remark},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+		</set>
+		where test_id=#{id}
+	</update>
+	
+</mapper>
