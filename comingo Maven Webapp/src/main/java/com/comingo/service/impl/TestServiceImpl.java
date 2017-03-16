@@ -37,6 +37,7 @@ public class TestServiceImpl implements TestService {
 	}
 
 	public void insert(Test test) {
+		System.out.println(this.getClass().toString()+"insert");
 		test.setId(UUID.randomUUID().toString());
 		test.setCreateTime(new Date());
 		testDao.insert(test);
