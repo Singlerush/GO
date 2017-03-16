@@ -19,7 +19,7 @@ public class TestController extends BaseController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody
-	String sayGET(Serializable id) {
+	String sayGET(String id) {
 		Test test = testService.get(id);
 		System.out.println(test.getUsername());
 		return "GET Success" + test.getUsername();
@@ -34,7 +34,7 @@ public class TestController extends BaseController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.DELETE)
 	public @ResponseBody
-	String sayDEL(Serializable id){
+	String sayDEL(String id){
 		testService.deleteById(id);
 		return "DELETE Success";
 	}
