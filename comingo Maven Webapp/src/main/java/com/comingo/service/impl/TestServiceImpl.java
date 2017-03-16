@@ -32,8 +32,8 @@ public class TestServiceImpl implements TestService {
 	}
 
 	public Test get(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(this.getClass().toString()+"get");
+		return testDao.get(id);
 	}
 
 	public void insert(Test test) {
@@ -44,13 +44,11 @@ public class TestServiceImpl implements TestService {
 	}
 
 	public void update(Test test) {
-		// TODO Auto-generated method stub
-
+		testDao.update(test);
 	}
 
 	public void deleteById(Serializable id) {
-		// TODO Auto-generated method stub
-
+		testDao.deleteById(id);
 	}
 
 	public void delete(Serializable[] ids) {

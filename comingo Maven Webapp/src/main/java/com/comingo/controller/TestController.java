@@ -1,5 +1,7 @@
 package com.comingo.controller;
 
+import java.io.Serializable;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +19,10 @@ public class TestController extends BaseController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody
-	String sayGET(Test test) {
-		testService.insert(test);
-		return "GET Success";
+	String sayGET(Serializable id) {
+		Test test = testService.get(id);
+		System.out.println(test.getUsername());
+		return "GET Success" + test.getUsername();
 	}
 
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
@@ -31,13 +34,15 @@ public class TestController extends BaseController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.DELETE)
 	public @ResponseBody
-	String sayDEL(Test test){
+	String sayDEL(Serializable id){
+		testService.deleteById(id);
 		return "DELETE Success";
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.PUT)
 	public @ResponseBody
 	String sayPUT(Test test){
+		testService.update(test);
 		return "PUT Success";
 	}
 }	

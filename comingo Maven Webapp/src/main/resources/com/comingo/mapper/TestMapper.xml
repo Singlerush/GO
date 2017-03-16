@@ -24,5 +24,25 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{createTime}
 		)
 	</insert>
-
+	<!-- 查看 -->
+	<select id="get" parameterType="string" resultMap="testRM" >
+		select * from test
+		where test_id = #{id}
+	</select>
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="string">
+		delete from test
+		where test_id = #{id}
+	</delete>
+	<!-- 更新 -->
+	<update id="update" parameterType="com.comingo.domain.Test">
+		update test
+		<set>
+			<if test="username != null">username=#{username},</if>
+			<if test="remark != null">remark=#{remark},</if>
+			<if test="createTime != null">createTime=#{createTime},</if>
+		</set>
+		where test_id=#{id}
+	</update>
+	
 </mapper>
