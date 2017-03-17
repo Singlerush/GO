@@ -1,6 +1,7 @@
 package com.comingo.service.impl;
 
 import java.io.Serializable;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,11 +33,12 @@ public class TestServiceImpl implements TestService {
 	}
 
 	public Test get(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.println(this.getClass().toString()+"get");
+		return testDao.get(id);
 	}
 
 	public void insert(Test test) {
+		System.out.println(this.getClass().toString()+"insert");
 		test.setId(UUID.randomUUID().toString());
 		test.setCreateTime(new Date());
 		testDao.insert(test);
@@ -44,13 +46,11 @@ public class TestServiceImpl implements TestService {
 	}
 
 	public void update(Test test) {
-		// TODO Auto-generated method stub
-
+		testDao.update(test);
 	}
 
 	public void deleteById(Serializable id) {
-		// TODO Auto-generated method stub
-
+		testDao.deleteById(id);
 	}
 
 	public void delete(Serializable[] ids) {
