@@ -21,12 +21,16 @@ public class TestController extends BaseController {
 	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody
-	Test sayGET(String id) throws Exception {
+	Object sayGET(String id) {
 		Test test = null;
-		if(id==null) throw new ParamsErrorException();
-		test = testService.get(id);
-		System.out.println(test.getUsername());
-		return test;
+		try{
+			if(id==null) throw new ParamsErrorException();
+			test = testService.get(id);
+			System.out.println(test.getUsername());
+			return test;
+		}catch(ParamsErrorException e){
+			return e.getSc();
+		}
 	} 
 
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
