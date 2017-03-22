@@ -13,9 +13,14 @@ import com.comingo.pagination.Page;
 
 @Repository
 public class TestDaoImpl extends BaseDaoImpl<Test> implements TestDao {
+	
 	public TestDaoImpl(){
 		//设置命名空间
 		super.setNs("com.comingo.mapper.TestMapper");
+	}
+
+	public Test findByName(String username) {
+		return super.getSqlSession().selectOne(super.getNs()+".findByName", username);
 	}
 
 }

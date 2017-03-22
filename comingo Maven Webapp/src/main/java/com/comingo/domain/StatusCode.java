@@ -1,19 +1,19 @@
 package com.comingo.domain;
 
 public class StatusCode {
-	private int errorcode;	//·µ»Ø´íÎóÂë
-	private String msg;		//´íÎóĞÅÏ¢
+	private int statuscode;	
+	private String msg;		
 	
-	public StatusCode(int errorcode, String msg) {
-		this.errorcode = errorcode;
+	public StatusCode(int statuscode, String msg) {
+		this.statuscode = statuscode;
 		this.msg = msg;
 	}
 	
-	public int getErrorcode() {
-		return errorcode;
+	public int getStatuscode() {
+		return statuscode;
 	}
-	public void setErrorcode(int errorcode) {
-		this.errorcode = errorcode;
+	public void setStatuscode(int statuscode) {
+		this.statuscode = statuscode;
 	}
 	public String getMsg() {
 		return msg;

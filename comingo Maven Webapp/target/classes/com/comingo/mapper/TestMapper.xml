@@ -29,6 +29,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from test
 		where test_id = #{id}
 	</select>
+	
+	<!-- 查看 -->
+	<select id="findByName" parameterType="string" resultMap="testRM" >
+		select * from test
+		where username = #{username}
+	</select>
+	
 	<!-- 删除 -->
 	<delete id="deleteById" parameterType="string">
 		delete from test
