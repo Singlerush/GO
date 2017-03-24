@@ -1,15 +1,21 @@
 package com.comingo.controller;
 
-import java.io.Serializable;
+import java.sql.SQLException;
+
+import javax.annotation.Resource;
+
+import net.sf.json.JSONObject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.annotation.Resource;
-
+import com.comingo.domain.StatusCode;
 import com.comingo.domain.Test;
+import com.comingo.exception.MySQLException;
+import com.comingo.exception.ParamsErrorException;
+import com.comingo.exception.QueryFailedException;
 import com.comingo.service.TestService;
 
 @Controller
@@ -17,32 +23,87 @@ public class TestController extends BaseController {
 	@Resource
 	TestService testService;
 	
+	final private StatusCode successcode = new StatusCode(200, "OK");
+	
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public @ResponseBody
-	String sayGET(String id) {
-		Test test = testService.get(id);
-		System.out.println(test.getUsername());
-		return "GET Success" + test.getUsername();
-	}
+	JSONObject sayGET(String id) {
+		Test test = null;
+		JSONObject json = new JSONObject();  
+		try{
+			if(id==null) throw new ParamsErrorException();
+			test = testService.get(id);
+			if(test==null) throw new QueryFailedException();
+			json.putAll(json.fromObject(successcode));
+			json.put("test",test);
+			return json;
+		}catch(ParamsErrorException e){
+			return json.fromObject(e.getSc());
+		}catch (QueryFailedException e) {
+			return json.fromObject(e.getSc());
+		}
+	} 
 
 	@RequestMapping(value = "/test", method = RequestMethod.POST)
 	public @ResponseBody
-	String sayPOST(Test test){
-		testService.insert(test);
-		return "POST Success";
+	JSONObject sayPOST(Test test){
+		JSONObject json = new JSONObject();  
+		try{
+			testService.insert(test);
+			json.putAll(json.fromObject(successcode));
+			return json;
+		}catch(MySQLException sqle){
+			return json.fromObject(new StatusCode(10001, "Database Error"));
+		}
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.DELETE)
 	public @ResponseBody
-	String sayDEL(String id){
-		testService.deleteById(id);
-		return "DELETE Success";
+	JSONObject sayDEL(String id){
+		Test test = null;
+		JSONObject json = new JSONObject();  
+		try{
+			if(id==null) throw new ParamsErrorException();
+			test = testService.get(id);
+			if(test==null) throw new QueryFailedException("id不存在");
+			testService.deleteById(id);
+			json.putAll(json.fromObject(successcode));
+			return json;
+		}catch(MySQLException e){
+			return json.fromObject(e.getSc());
+		}catch(ParamsErrorException e){
+			return json.fromObject(e.getSc());
+		}catch (QueryFailedException e) {
+			return json.fromObject(e.getSc());
+		}
 	}
 	
 	@RequestMapping(value = "/test", method = RequestMethod.PUT)
 	public @ResponseBody
-	String sayPUT(Test test){
+	JSONObject sayPUT(Test test){
+		JSONObject json = new JSONObject();  
+
 		testService.update(test);
-		return "PUT Success";
+		json.putAll(json.fromObject(successcode));
+		return json;
 	}
+	
+	@RequestMapping(value = "/testget", method = RequestMethod.GET)
+	public @ResponseBody
+	JSONObject testGET(String username) {
+		Test test = null;
+		JSONObject json = new JSONObject();  
+		try{
+			if(username==null) throw new ParamsErrorException();
+			test = testService.findByName(username);
+			if(test==null) throw new QueryFailedException();
+			json.putAll(json.fromObject(successcode));
+			json.put("test",test);
+			return json;
+		}catch(ParamsErrorException e){
+			return json.fromObject(e.getSc());
+		}catch (QueryFailedException e) {
+			return json.fromObject(e.getSc());
+		}
+	} 
 }	
