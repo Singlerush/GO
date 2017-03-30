@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.comingo.mapper.OrgInfoMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.comingo.domain.OrgInfo" id="orgInfoRM">
+		<!-- 主键 -->
+		<id property="orgId" column="org_id"/>
+		<!-- 一般属性 -->
+		<result property="orgDesc" column="org_desc"/>
+		<result property="leader" column="leader"/>
+		<result property="leaderMobile" column="leader_mobile"/>
+		<result property="authImg1" column="auth_img1"/>
+		<result property="authImg2" column="auth_img2"/>
+		<result property="activateState" column="activate_state"/>
+		<result property="verifyState" column="verify_state"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="insert" parameterType="com.comingo.domain.OrgInfo">
+		insert into org_info (org_id,org_desc,leader,leader_mobile,auth_img1,auth_img2,activate_state,verify_state)
+		values 
+		(	#{orgId},
+			#{orgDesc},
+			#{leader},
+			#{leaderMobile},
+			#{authImg1},
+			#{authImg2},
+			#{activateState},
+			#{verifyState}
+		)
+	</insert>
+</mapper>
