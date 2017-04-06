@@ -14,7 +14,7 @@ import com.comingo.pagination.Page;
 public interface OrgInfoService {
 	public List<OrgInfo> findPage(Page page);		//分页查询
 	public List<OrgInfo> find(Map paraMap);		//带条件查询，条件可以为null，既没有条件；返回list对象集合
-	public Test get(Serializable id);			//只查询一个，常用于修改
+	public OrgInfo get(Serializable id);			//只查询一个，常用于修改
 	
 	public void insert(OrgInfo orgInfo) throws MySQLException;			//插入，用实体作为参数
 	public void update(OrgInfo orgInfo);			//修改，用实体作为参数

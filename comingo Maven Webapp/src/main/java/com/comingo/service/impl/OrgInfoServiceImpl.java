@@ -71,7 +71,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return null;
 	}
 
-	public Test get(Serializable id) {
+	public OrgInfo get(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -98,8 +98,9 @@ body {
 }
 </style>
 
-	<script type="text/javascript"
+<script type="text/javascript"
 		src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+	
 	<div id='map'></div>
 	<script>
 		mapboxgl.accessToken = 'pk.eyJ1Ijoic2luZ2xlcnVzaCIsImEiOiJjajBrbXZ4ZHUwMG9qMzNuMnh0b25ncTcyIn0.Mjmfvwuf0B1q3Oy5HcoifA';

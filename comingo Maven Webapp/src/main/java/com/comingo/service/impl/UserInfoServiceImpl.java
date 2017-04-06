@@ -36,7 +36,7 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return null;
 	}
 
-	public Test get(Serializable id) {
+	public UserInfo get(Serializable id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
