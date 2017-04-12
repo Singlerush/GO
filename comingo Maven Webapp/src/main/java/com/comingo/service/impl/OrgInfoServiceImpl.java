@@ -34,11 +34,10 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		UserInfo userInfo = new UserInfo();
 		String userId = UUID.randomUUID().toString();
 		userInfo.setUserId(userId);
-		userInfo.setNickname(userInfo.getNickname());
+		userInfo.setUsername(userInfo.getUsername());
 		String md5Pwd = MD5Util.makeMD5(userInfo.getPassword());
 		userInfo.setPassword(md5Pwd);
-		String profilePicPath = "#";
-		userInfo.setProfilePic(profilePicPath);
+		userInfo.setProfilePic(userInfo.getProfilePic());
 		userInfo.setBirthday(userInfo.getBirthday());
 		userInfo.setEmail(userInfo.getEmail());
 		userInfo.setMobile(userInfo.getMobile());
@@ -72,7 +71,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	}
 
 	public OrgInfo get(Serializable id) {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 

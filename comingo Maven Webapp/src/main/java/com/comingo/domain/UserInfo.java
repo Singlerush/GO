@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class UserInfo {
 	private String userId;
-	private String nickname;
+	private String username;
 	private String password;
 	private String profilePic;
 	private String birthday;
@@ -18,11 +18,11 @@ public class UserInfo {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getUsername() {
+		return username;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setUsername(String username) {
+		this.username = username;
 	}
 	public String getPassword() {
 		return password;

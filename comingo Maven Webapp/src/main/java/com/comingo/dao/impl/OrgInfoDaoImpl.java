@@ -13,5 +13,4 @@ public class OrgInfoDaoImpl extends BaseDaoImpl<OrgInfo> implements OrgInfoDao {
 		//设置命名空间
 		super.setNs("com.comingo.mapper.OrgInfoMapper");
 	}
-
 }

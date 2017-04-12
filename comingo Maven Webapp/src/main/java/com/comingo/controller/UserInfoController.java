@@ -6,11 +6,13 @@ import javax.annotation.Resource;
 
 import net.sf.json.JSONObject;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.comingo.domain.OrgInfo;
 import com.comingo.domain.StatusCode;
 import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
@@ -35,27 +37,25 @@ public class UserInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/userinfo", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject UserRegister(UserInfo userInfo){
+	JSONObject sayPOST(UserInfo userInfo){
 		JSONObject json = new JSONObject();  
 		try{
 			userInfoService.insert(userInfo);
-			System.out.println(userInfo.getUserId()+":"+userInfo.getNickname()+".."+userInfo.getBirthday());
 			json.putAll(json.fromObject(successcode));
 			return json;
 		}catch(MySQLException sqle){
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
-	
 	/**
 	 * 用户信息获取
-	 * @param id
+	 * @param orginfo
 	 * @return
 	 */
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
 	public @ResponseBody
 	JSONObject UserInfo(String id){
-		JSONObject json = new JSONObject();  
+		JSONObject json = new JSONObject(); 
 		try{
 			if(id==null) throw new ParamsErrorException();
 			UserInfo userInfo = userInfoService.get(id);
@@ -81,8 +81,13 @@ public class UserInfoController extends BaseController {
 	JSONObject UserLogin(String username, String password){
 		JSONObject json = new JSONObject();  
 		try{
-			if(username==null||password==null) throw new ParamsErrorException();
-			if(true)
+		if(username==null||password==null) throw new ParamsErrorException();
+			UserInfo userInfo = userInfoService.findUserByUsernameAndPSW(username, password);
+			System.out.println(userInfo.getBirthday());
+			if(userInfo==null){
+				throw new LoginFailedException();
+			}
+			if(StringUtils.isNotBlank(userInfo.getUserId()))
 				json.putAll(json.fromObject(successcode));
 			else
 				throw new LoginFailedException();

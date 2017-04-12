@@ -9,7 +9,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<!-- 主键 -->
 		<id property="userId" column="user_id"/>
 		<!-- 一般属性 -->
-		<result property="nickname" column="nickname"/>
+		<result property="username" column="username"/>
 		<result property="password" column="password"/>
 		<result property="profilePic" column="profile_pic"/>
 		<result property="birthday" column="birthday"/>
@@ -21,10 +21,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 新增 -->
 	<insert id="insert" parameterType="com.comingo.domain.UserInfo">
-		insert into user_info (user_id,nickname,password,profile_pic,birthday,mobile,email,user_type,register_time)
+		insert into user_info (user_id,username,password,profile_pic,birthday,mobile,email,user_type,register_time)
 		values 
 		(	#{userId},
-			#{nickname},
+			#{username},
 			#{password},
 			#{profilePic},
 			#{birthday},
@@ -38,6 +38,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="get" parameterType="string" resultMap="userInfoRM" >
 		select * from user_info
 		where user_id = #{userId}
+	</select>
+	<!-- 根据用户名和密码查找用户  -->
+	<select id="findUserByUsernameAndPSW" parameterType="map" resultMap="userInfoRM">
+          select * from user_info where 1=1
+          <if test="username!=null">
+          and username=#{username}
+          </if>
+          <if test="password!=null">
+          and password=#{password}
+          </if>
 	</select>
 	<!-- 查询 -->
 	<select id="find" parameterType="map" resultMap="userInfoRM">
@@ -54,7 +64,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="update" parameterType="com.comingo.domain.UserInfo">
 		update user_info
 		<set>
-			<if test="nickname != null">nickname=#{nickname},</if>
+			<if test="username != null">username=#{username},</if>
 			<if test="password != null">password=#{password},</if>
 			<if test="profilePic != null">profile_pic=#{profilePic},</if>
 			<if test="birthday != null">birthday=#{birthday},</if>

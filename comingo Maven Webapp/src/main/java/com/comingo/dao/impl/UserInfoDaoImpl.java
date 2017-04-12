@@ -1,6 +1,8 @@
 package com.comingo.dao.impl;
 
 
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 import com.comingo.dao.UserInfoDao;
@@ -14,4 +16,7 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserInfo> implements UserInfoDa
 		super.setNs("com.comingo.mapper.UserInfoMapper");
 	}
 
+	public UserInfo findUserByUsernameAndPSW(Map map) {
+		return super.getSqlSession().selectOne(super.getNs()+".findUserByUsernameAndPSW", map);
+	}
 }
