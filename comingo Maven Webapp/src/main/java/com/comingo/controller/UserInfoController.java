@@ -82,14 +82,12 @@ public class UserInfoController extends BaseController {
 		JSONObject json = new JSONObject();  
 		try{
 			if(username==null||password==null) throw new ParamsErrorException();
-			if(!userInfoService.get(id))
+			if(true)
 				json.putAll(json.fromObject(successcode));
 			else
 				throw new LoginFailedException();
 			return json;
 		}catch (ParamsErrorException e) {
-			return json.fromObject(e.getSc());
-		} catch (QueryFailedException e) {
 			return json.fromObject(e.getSc());
 		} catch (LoginFailedException e) {
 			return json.fromObject(e.getSc());
