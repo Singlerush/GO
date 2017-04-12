@@ -13,7 +13,6 @@ public class OrgInfo {
 	private int activateState;
 	private int verifyState;
 
-	
 	public UserInfo getUserInfo() {
 		return userInfo;
 	}
@@ -21,6 +20,7 @@ public class OrgInfo {
 	public void setUserInfo(UserInfo userInfo) {
 		this.userInfo = userInfo;
 	}
+	
 	public String getOrgId() {
 		return orgId;
 	}
