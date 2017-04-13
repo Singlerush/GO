@@ -54,11 +54,11 @@ public class UserInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/userinfo", method = RequestMethod.GET)
 	public @ResponseBody
-	JSONObject UserInfo(String id){
+	JSONObject UserInfo(String userId){
 		JSONObject json = new JSONObject(); 
 		try{
-			if(id==null) throw new ParamsErrorException();
-			UserInfo userInfo = userInfoService.get(id);
+			if(userId==null) throw new ParamsErrorException();
+			UserInfo userInfo = userInfoService.get(userId);
 			if(userInfo==null) throw new QueryFailedException();
 			json.putAll(json.fromObject(successcode));
 			json.put("UserInfo",userInfo);
@@ -87,9 +87,10 @@ public class UserInfoController extends BaseController {
 			if(userInfo==null){
 				throw new LoginFailedException();
 			}
-			if(StringUtils.isNotBlank(userInfo.getUserId()))
+			if(StringUtils.isNotBlank(userInfo.getUserId())){
 				json.putAll(json.fromObject(successcode));
-			else
+				json.put("userId", userInfo.getUserId());
+			}else
 				throw new LoginFailedException();
 			return json;
 		}catch (ParamsErrorException e) {
