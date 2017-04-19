@@ -1,28 +1,29 @@
 package com.comingo.domain;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class ActLike {
-	private String act_id;
-	private String user_id;
-	private Timestamp act_like_create_time;
-	public String getAct_id() {
-		return act_id;
+	private String actId;
+	private String userId;
+	private Date actLikeCreateTime;
+	public String getActId() {
+		return actId;
 	}
-	public void setAct_id(String act_id) {
-		this.act_id = act_id;
+	public void setActId(String actId) {
+		this.actId = actId;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public Timestamp getAct_like_create_time() {
-		return act_like_create_time;
+	public Date getActLikeCreateTime() {
+		return actLikeCreateTime;
 	}
-	public void setAct_like_create_time(Timestamp act_like_create_time) {
-		this.act_like_create_time = act_like_create_time;
+	public void setActLikeCreateTime(Date actLikeCreateTime) {
+		this.actLikeCreateTime = actLikeCreateTime;
 	}
 
 }

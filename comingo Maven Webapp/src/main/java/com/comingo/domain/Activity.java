@@ -1,105 +1,106 @@
 package com.comingo.domain;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Activity {
-	private String act_id;
-	private String user_id;
-	private Timestamp act_beginTime;
-	private Timestamp act_endTime;
-	private Timestamp applyDateLine;
-	private String act_label;
-	private String act_title;
-	private String act_desc;
-	private String act_pic;
-	private double act_longitude;
-	private double act_latitude;
-	private Timestamp publishTime;
-	private String contact_name;
-	private String contact_tel;
-	public String getAct_id() {
-		return act_id;
+	private String actId;
+	private String userId;
+	private Date actBeginTime;
+	private Date actEndTime;
+	private Date applyDateLine;
+	private String actLabel;
+	private String actTitle;
+	private String actDesc;
+	private String actPic;
+	private double actLongitude;
+	private double actLatitude;
+	private Date publishTime;
+	private String contactName;
+	private String contactTel;
+	public String getActId() {
+		return actId;
 	}
-	public void setAct_id(String act_id) {
-		this.act_id = act_id;
+	public void setActId(String actId) {
+		this.actId = actId;
 	}
-	public String getUser_id() {
-		return user_id;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public Timestamp getAct_beginTime() {
-		return act_beginTime;
+	public Date getActBeginTime() {
+		return actBeginTime;
 	}
-	public void setAct_beginTime(Timestamp act_beginTime) {
-		this.act_beginTime = act_beginTime;
+	public void setActBeginTime(Date actBeginTime) {
+		this.actBeginTime = actBeginTime;
 	}
-	public Timestamp getAct_endTime() {
-		return act_endTime;
+	public Date getActEndTime() {
+		return actEndTime;
 	}
-	public void setAct_endTime(Timestamp act_endTime) {
-		this.act_endTime = act_endTime;
+	public void setActEndTime(Date actEndTime) {
+		this.actEndTime = actEndTime;
 	}
-	public Timestamp getApplyDateLine() {
+	public Date getApplyDateLine() {
 		return applyDateLine;
 	}
-	public void setApplyDateLine(Timestamp applyDateLine) {
+	public void setApplyDateLine(Date applyDateLine) {
 		this.applyDateLine = applyDateLine;
 	}
-	public String getAct_label() {
-		return act_label;
+	public String getActLabel() {
+		return actLabel;
 	}
-	public void setAct_label(String act_label) {
-		this.act_label = act_label;
+	public void setActLabel(String actLabel) {
+		this.actLabel = actLabel;
 	}
-	public String getAct_title() {
-		return act_title;
+	public String getActTitle() {
+		return actTitle;
 	}
-	public void setAct_title(String act_title) {
-		this.act_title = act_title;
+	public void setActTitle(String actTitle) {
+		this.actTitle = actTitle;
 	}
-	public String getAct_desc() {
-		return act_desc;
+	public String getActDesc() {
+		return actDesc;
 	}
-	public void setAct_desc(String act_desc) {
-		this.act_desc = act_desc;
+	public void setActDesc(String actDesc) {
+		this.actDesc = actDesc;
 	}
-	public String getAct_pic() {
-		return act_pic;
+	public String getActPic() {
+		return actPic;
 	}
-	public void setAct_pic(String act_pic) {
-		this.act_pic = act_pic;
+	public void setActPic(String actPic) {
+		this.actPic = actPic;
 	}
-	public double getAct_longitude() {
-		return act_longitude;
+	public double getActLongitude() {
+		return actLongitude;
 	}
-	public void setAct_longitude(double act_longitude) {
-		this.act_longitude = act_longitude;
+	public void setActLongitude(double actLongitude) {
+		this.actLongitude = actLongitude;
 	}
-	public double getAct_latitude() {
-		return act_latitude;
+	public double getActLatitude() {
+		return actLatitude;
 	}
-	public void setAct_latitude(double act_latitude) {
-		this.act_latitude = act_latitude;
+	public void setActLatitude(double actLatitude) {
+		this.actLatitude = actLatitude;
 	}
-	public Timestamp getPublishTime() {
+	public Date getPublishTime() {
 		return publishTime;
 	}
-	public void setPublishTime(Timestamp publishTime) {
+	public void setPublishTime(Date publishTime) {
 		this.publishTime = publishTime;
 	}
-	public String getContact_name() {
-		return contact_name;
+	public String getContactName() {
+		return contactName;
 	}
-	public void setContact_name(String contact_name) {
-		this.contact_name = contact_name;
+	public void setContactName(String contactName) {
+		this.contactName = contactName;
 	}
-	public String getContact_tel() {
-		return contact_tel;
+	public String getContactTel() {
+		return contactTel;
 	}
-	public void setContact_tel(String contact_tel) {
-		this.contact_tel = contact_tel;
+	public void setContactTel(String contactTel) {
+		this.contactTel = contactTel;
 	}
 	
 	
