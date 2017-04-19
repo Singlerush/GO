@@ -32,4 +32,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{verifyState}
 		)
 	</insert>
+	
+	<!-- 查询一个（常用于修改）  -->
+	<select id="get" parameterType="string" resultMap="orgInfoRM" >
+		select * from org_info
+		where org_id = #{orgId}
+	</select>
+	<!-- 根据邮箱和密码查找用户  -->
+	<select id="findOrgByEMailAndPSW" parameterType="map" resultMap="orgInfoRM">
+          select * from org_info where 1=1
+          <if test="email!=null">
+          and email=#{email}
+          </if>
+          <if test="password!=null">
+          and password=#{password}
+          </if>
+	</select>
+	<!-- 查询 -->
+	<select id="find" parameterType="map" resultMap="orgInfoRM">
+		select * from org_info
+		where 1=1
+	</select>	
+	
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="string">
+		delete from org_info
+		where org_id = #{orgId}
+	</delete>
+	<!-- 更新 -->
+	<update id="update" parameterType="com.comingo.domain.OrgInfo">
+		update org_info
+		<set>
+			<if test="orgDesc != null">org_desc=#{orgDesc},</if>
+			<if test="leader != null">leader=#{leader},</if>
+			<if test="leaderMobile != null">leader_mobile=#{leaderMobile},</if>
+			<if test="authImg1 != null">authImg1=#{authImg1},</if>
+			<if test="authImg2 != null">authImg2=#{authImg2},</if>
+			<if test="activateState != null">activate_state=#{activateState},</if>
+			<if test="verifyState != null">verify_state=#{verifyState},</if>
+		</set>
+		where org_id=#{orgId}
+	</update>
+	
 </mapper>

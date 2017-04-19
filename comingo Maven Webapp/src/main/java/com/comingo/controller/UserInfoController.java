@@ -78,12 +78,11 @@ public class UserInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/userlogin", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject UserLogin(String username, String password){
+	JSONObject UserLogin(String mobile, String password){
 		JSONObject json = new JSONObject();  
 		try{
-		if(username==null||password==null) throw new ParamsErrorException();
-			UserInfo userInfo = userInfoService.findUserByUsernameAndPSW(username, password);
-			System.out.println(userInfo.getBirthday());
+		if(mobile==null||password==null) throw new ParamsErrorException();
+			UserInfo userInfo = userInfoService.findUserByMobileAndPSW(mobile, password);
 			if(userInfo==null){
 				throw new LoginFailedException();
 			}

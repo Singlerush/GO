@@ -39,11 +39,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_info
 		where user_id = #{userId}
 	</select>
-	<!-- 根据用户名和密码查找用户  -->
-	<select id="findUserByUsernameAndPSW" parameterType="map" resultMap="userInfoRM">
+	<!-- 根据手机号和密码查找用户  -->
+	<select id="findUserByMobileAndPSW" parameterType="map" resultMap="userInfoRM">
           select * from user_info where 1=1
-          <if test="username!=null">
-          and username=#{username}
+          <if test="mobile!=null">
+          and mobile=#{mobile}
           </if>
           <if test="password!=null">
           and password=#{password}
@@ -54,6 +54,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_info
 		where 1=1
 	</select>	
+	
+	<!-- 根据手机号查找用户或者社团 -->
+	<select id="findUserByMobile" parameterType="string" resultMap="userInfoRM">
+		select * from user_info
+		where mobile = #{mobile}
+	</select>
 	
 	<!-- 删除 -->
 	<delete id="deleteById" parameterType="string">

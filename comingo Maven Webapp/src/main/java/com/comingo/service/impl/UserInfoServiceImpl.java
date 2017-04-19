@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.comingo.dao.OrgInfoDao;
 import com.comingo.dao.UserInfoDao;
+import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
 import com.comingo.exception.MySQLException;
@@ -51,14 +52,13 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfo.setPassword(md5Pwd);
 		userInfo.setProfilePic(userInfo.getProfilePic());
 		userInfo.setBirthday(userInfo.getBirthday());
+		if((userInfoDao.findUserByMobile(userInfo.getMobile())!=null)){
+			throw new RuntimeException("该手机号已经被注册");
+		}
 		userInfo.setEmail(userInfo.getEmail());
 		userInfo.setMobile(userInfo.getMobile());
 		userInfo.setUserType(0);
 		userInfo.setRegisterTime(new Timestamp(new Date().getTime()));
-		String msg = "";
-		if (userInfo.getUsername() != null) {
-			msg = "改用户名已经存在！";
-		}
 		userInfoDao.insert(userInfo);
 	}
 
@@ -76,11 +76,19 @@ public class UserInfoServiceImpl implements UserInfoService {
 		// TODO Auto-generated method stub
 
 	}
-	public UserInfo findUserByUsernameAndPSW(String username,String password){
+
+	public UserInfo findUserByMobile(String mobile) {
+		return userInfoDao.findUserByMobile(mobile);
+	}
+	
+	/**
+	 * 根据手机号和密码查找用户
+	 */
+	public UserInfo findUserByMobileAndPSW(String mobile, String password) {
 		Map map = new HashMap();
-		map.put("username", username);
+		map.put("mobile", mobile);
 		map.put("password", password);
-		UserInfo userInfo = userInfoDao.findUserByUsernameAndPSW(map);
+		UserInfo userInfo = userInfoDao.findUserByMobileAndPSW(map);
 		if(userInfo==null){
 			throw new RuntimeException("找不到用户");
 		}

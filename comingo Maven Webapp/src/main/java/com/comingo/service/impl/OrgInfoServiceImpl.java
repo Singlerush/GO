@@ -17,6 +17,7 @@ import com.comingo.dao.UserInfoDao;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
+import com.comingo.exception.LoginFailedException;
 import com.comingo.exception.MySQLException;
 import com.comingo.pagination.Page;
 import com.comingo.service.OrgInfoService;
@@ -30,6 +31,9 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	@Resource
 	UserInfoDao userInfoDao;
 	
+	/**
+	 * 添加社团账号
+	 */
 	public void insert(OrgInfo orgInfo) {
 		UserInfo userInfo = new UserInfo();
 		String userId = UUID.randomUUID().toString();
@@ -40,6 +44,9 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		userInfo.setProfilePic(userInfo.getProfilePic());
 		userInfo.setBirthday(userInfo.getBirthday());
 		userInfo.setEmail(userInfo.getEmail());
+		if((userInfoDao.findUserByMobile(userInfo.getMobile())!=null)){
+			throw new RuntimeException("该手机号已经被注册");
+		}
 		userInfo.setMobile(userInfo.getMobile());
 		userInfo.setUserType(0);
 		userInfo.setRegisterTime(new Timestamp(new Date().getTime()));
@@ -64,10 +71,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	public List<OrgInfo> find(Map paraMap) {
-		// TODO Auto-generated method stub
-		return null;
+	/**
+	 * 根据邮箱和密码查找社团
+	 */
+	public OrgInfo findOrgByEMailAndPSW(Map paraMap) {
+		
+		return orgInfoDao.findOrgByEMailAndPSW(paraMap);
 	}
 
 	public OrgInfo get(Serializable id) {
@@ -89,6 +98,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public List<OrgInfo> find(Map paraMap) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
 
 	
 }
