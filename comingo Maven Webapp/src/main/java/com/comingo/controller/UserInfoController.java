@@ -72,7 +72,7 @@ public class UserInfoController extends BaseController {
 	
 	/**
 	 * 用户登录
-	 * @param username
+	 * @param moblile
 	 * @param password
 	 * @return
 	 */
