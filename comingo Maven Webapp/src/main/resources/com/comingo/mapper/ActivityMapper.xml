@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.comingo.mapper.ActivityMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.comingo.domain.Activity" id="activityRM">
+		<!-- 主键 -->
+		<id property="actId" column="act_id"/>
+		<!-- 一般属性 -->
+		<result property="userId" column="user_id"/>
+		<result property="actBeginTime" column="act_beginTime"/>
+		<result property="actEndTime" column="act_endTime"/>
+		<result property="applyDateLine" column="applyDateLine"/>
+		<result property="actLabel" column="act_label"/>
+		<result property="actTitle" column="act_title"/>
+		<result property="actDesc" column="act_desc"/>
+		<result property="actPic" column="act_pic"/>
+		<result property="actLongitude" column="act_longitude"/>
+		<result property="actLatitude" column="act_latitude"/>
+		<result property="publishTime" column="publishTime"/>
+		<result property="contactName" column="contact_name"/>
+		<result property="contactTel" column="contact_tel"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="insertActivity" parameterType="com.comingo.domain.Activity">
+		insert into activity (act_id,user_id,act_beginTime,act_endTime,applyDateLine,act_label,act_title,act_desc,act_pic,act_longitude,act_latitude,publishTime,contact_name,contact_tel)
+		values 
+		(	#{actId},
+			#{userId},
+			#{actBeginTime},
+			#{actEndTime},
+			#{applyDateLine},
+			#{actLabel},
+			#{actTitle},
+			#{actDesc},
+			#{actPic},
+			#{actLongitude},
+			#{actLatitude},
+			#{publishTime},
+			#{contactName},
+			#{contactTel}
+		)
+	</insert>
+	<!-- 查询一个（常用于修改）  -->
+	<select id="get" parameterType="string" resultMap="activityRM" >
+		select * from activity
+		where act_id = #{actId}
+	</select>
+	<!-- 查询 -->
+	<select id="find" parameterType="map" resultMap="activityRM">
+		select * from activity
+		where 1=1
+	</select>	
+	<!-- 删除 -->
+	<delete id="deleteById" parameterType="string">
+		delete from activity
+		where act_id = #{actId}
+	</delete>
+	<!-- 更新 -->
+	<update id="update" parameterType="com.comingo.domain.Activity">
+		update activity
+		<set>
+			<if test="actBeginTime != null">act_beginTime=#{actBeginTime},</if>
+			<if test="actEndTime != null">act_endTime=#{actEndTime},</if>
+			<if test="applyDateLine != null">applyDateLine=#{applyDateLine},</if>
+			<if test="actLabel != null">act_label=#{actLabel},</if>
+			<if test="actTitle != null">act_title=#{actTitle},</if>
+			<if test="actDesc != null">act_desc=#{actDesc},</if>
+			<if test="actPic != null">act_pic=#{actPic},</if>
+			<if test="actLongitude != null">act_longitude=#{actLongitude},</if>
+			<if test="actLatitude != null">act_latitude=#{actLatitude},</if>
+			<if test="publishTime != null">publishTime=#{publishTime},</if>
+			<if test="contactName != null">contact_name=#{contactName},</if>
+			<if test="contactTel != null">contact_tel=#{contactTel},</if>
+		</set>
+		where act_id=#{actId}
+	</update>
+	
+</mapper>

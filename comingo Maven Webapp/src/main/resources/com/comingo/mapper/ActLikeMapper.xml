@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.comingo.mapper.ActivityMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.comingo.domain.ActLike" id="actLikeRM">
+		<!-- 主键 -->
+		<id property="actId" column="act_id"/>
+		<!-- 一般属性 -->
+		<result property="userId" column="user_id"/>
+		<result property="actLikeCreateTime" column="act_like_create_time"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="insertLike" parameterType="com.comingo.domain.ActLike">
+		insert into act_like (act_id,user_id,act_like_create_time)
+		values 
+		(	#{actId},
+			#{userId},
+			#{act_like_create_time}
+		)
+	</insert>
+	<!-- 删除 -->
+	<delete id="deleteLikeById" parameterType="string">
+		delete from act_like
+		where act_id = #{actId}
+	</delete>
+	
+</mapper>
