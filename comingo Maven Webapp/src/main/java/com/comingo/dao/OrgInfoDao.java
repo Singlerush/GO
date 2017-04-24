@@ -7,4 +7,6 @@ import com.comingo.domain.OrgInfo;
 public interface OrgInfoDao extends BaseDao<OrgInfo> {
 	public OrgInfo findOrgByEMailAndPSW(Map paraMap);
 
+	public Object findOrgByEmail(String email);
+
 }	

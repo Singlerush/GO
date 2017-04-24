@@ -60,6 +60,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_info
 		where mobile = #{mobile}
 	</select>
+	<!-- 根据邮箱查找社团 -->
+	<select id="findOrgByEmail" parameterType="string" resultMap="userInfoRM">
+		select * from user_info
+		where email = #{email}
+	</select>
 	
 	<!-- 删除 -->
 	<delete id="deleteById" parameterType="string">

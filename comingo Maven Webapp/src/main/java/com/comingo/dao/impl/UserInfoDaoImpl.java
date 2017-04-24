@@ -25,4 +25,8 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserInfo> implements UserInfoDa
 		return super.getSqlSession().selectOne(super.getNs()+".findUserByMobile", mobile);
 	}
 
+	public UserInfo findOrgByEmail(String email) {
+		return super.getSqlSession().selectOne(super.getNs()+".findOrgByEmail", email);
+	}
+
 }

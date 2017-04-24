@@ -37,9 +37,10 @@ public class OrgInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/orginfo", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject sayPOST(OrgInfo orgInfo){
+	JSONObject sayPOST(UserInfo userInfo, OrgInfo orgInfo){
 		JSONObject json = new JSONObject();  
 		try{
+			orgInfo.setUserInfo(userInfo);
 			orgInfoService.insert(orgInfo);
 			json.putAll(json.fromObject(successcode));
 			return json;

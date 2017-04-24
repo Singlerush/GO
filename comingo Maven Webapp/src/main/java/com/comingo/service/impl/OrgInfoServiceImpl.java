@@ -38,17 +38,17 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		UserInfo userInfo = new UserInfo();
 		String userId = UUID.randomUUID().toString();
 		userInfo.setUserId(userId);
-		userInfo.setUsername(userInfo.getUsername());
-		String md5Pwd = MD5Util.makeMD5(userInfo.getPassword());
+		userInfo.setUsername(orgInfo.getUserInfo().getUsername());
+		String md5Pwd = MD5Util.makeMD5(orgInfo.getUserInfo().getPassword());
 		userInfo.setPassword(md5Pwd);
-		userInfo.setProfilePic(userInfo.getProfilePic());
-		userInfo.setBirthday(userInfo.getBirthday());
-		userInfo.setEmail(userInfo.getEmail());
-		if((userInfoDao.findUserByMobile(userInfo.getMobile())!=null)){
-			throw new RuntimeException("该手机号已经被注册");
+		userInfo.setProfilePic(orgInfo.getUserInfo().getProfilePic());
+		userInfo.setBirthday(orgInfo.getUserInfo().getBirthday());
+		userInfo.setEmail(orgInfo.getUserInfo().getEmail());
+		if((userInfoDao.findOrgByEmail(userInfo.getEmail())!=null)){
+			throw new RuntimeException("该邮箱已经被注册");
 		}
-		userInfo.setMobile(userInfo.getMobile());
-		userInfo.setUserType(0);
+		userInfo.setMobile(orgInfo.getUserInfo().getMobile());
+		userInfo.setUserType(1);
 		userInfo.setRegisterTime(new Timestamp(new Date().getTime()));
 		//将社团中的个人信息加入到个人信息表中
 		userInfoDao.insert(userInfo);
@@ -103,7 +103,6 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
 
 	
 }
