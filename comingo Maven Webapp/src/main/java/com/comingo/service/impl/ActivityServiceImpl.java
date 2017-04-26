@@ -20,6 +20,8 @@ import com.comingo.dao.ActLikeDao;
 import com.comingo.dao.ActivityDao;
 import com.comingo.dao.OrgInfoDao;
 import com.comingo.dao.UserInfoDao;
+import com.comingo.domain.ActComment;
+import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Test;
@@ -57,8 +59,7 @@ public class ActivityServiceImpl implements ActivityService {
 	 * 根据活动id查找活动
 	 */
 	public Activity get(Serializable id) {
-		// TODO Auto-generated method stub
-		return null;
+		return activityDao.get(id);
 	}
 	/**
 	 * 添加新的活动
@@ -78,7 +79,7 @@ public class ActivityServiceImpl implements ActivityService {
 		activity.setPublishTime(activity.getPublishTime());
 		activity.setContactName(activity.getContactName());
 		activity.setContactTel(activity.getContactTel());
-		
+		activity.setActLocation(activity.getActLocation());
 		activityDao.insertActivity(activity);
 	}
 	/**
@@ -93,11 +94,65 @@ public class ActivityServiceImpl implements ActivityService {
 	public void deleteById(Serializable id) throws MySQLException {
 		activityDao.deleteById(id);
 	}
-
-	public void delete(Serializable[] ids) {
-		// TODO Auto-generated method stub
+	/**
+	 * 根据活动id查询对应点赞数
+	 */
+	public int findActLikeCountByActId(Serializable id){
+		return actLikeDao.findActLikeCountByActId(id);
 	}
-	
-
+	/**
+	 * 根据活动id查询对应评论数
+	 */
+	public int findActCommentCountByActId(Serializable id){
+		return actCommentDao.findActCommentCountByActId(id);
+	}
+	public void delete(Serializable[] ids) {
+		
+	}
+	/**
+	 * 查询活动列表
+	 */
+	public List<Activity> findActList(String userId) throws MySQLException {
+		return activityDao.findActList(userId);
+	}
+	/**
+	 * 通过关键字查询活动列表
+	 */
+	public List<Activity> findActByKeyword(String userId,String keyword) throws MySQLException {
+		Map map = new HashMap();
+		map.put("userId", userId);
+		map.put("keyword", keyword);
+		return activityDao.findActByKeyword(map);
+	}
+	/**
+	 * 添加活动点赞
+	 */
+	public void insertActLike(String actId, String userId) throws MySQLException{
+		ActLike actLike = new ActLike();
+		Date actLikeCreateTime = new Date();
+		actLike.setActId(actId);
+		actLike.setUserId(userId);
+		actLike.setActLikeCreateTime(actLikeCreateTime);
+		actLikeDao.insertActLike(actLike);
+	}
+	/**
+	 * 添加活动评论
+	 */
+	public void insertActComment(String actId, String userId, String actCommentDesc)
+			throws MySQLException {
+		ActComment actComment = new ActComment();
+		actComment.setActId(actId);
+		actComment.setUserId(userId);
+		actComment.setActCommentCreateTime(new Date());
+		actComment.setActCommentDesc(actCommentDesc);
+		actCommentDao.insertActComment(actComment);
+	}
+	/**
+	 * 查找活动评论
+	 */
+	public List<ActComment> findActCommentDesc(String actId)
+			throws MySQLException {
+		return actCommentDao.findActCommentDesc(actId);
+	}
 	
 }

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.comingo.domain.ActComment;
 import com.comingo.domain.Activity;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Test;
@@ -21,4 +22,12 @@ public interface ActivityService {
 	public void update(Activity activity);			//修改，用实体作为参数
 	public void deleteById(Serializable id) throws MySQLException;		//按id删除，删除一条；支持整数型和字符串类型ID
 	public void delete(Serializable[] ids);			//批量删除；支持整数型和字符串类型ID
+	
+	public int findActLikeCountByActId(Serializable id); //根据活动id查找活动的点赞数
+	public int findActCommentCountByActId(Serializable id); //根据活动id查找活动的评论数
+	public List<Activity> findActList(String userId) throws MySQLException;//查询活动的列表
+	public List<Activity> findActByKeyword(String userId, String keyword)throws MySQLException; //根据关键字查询活动
+	public void insertActLike(String actId, String userId) throws MySQLException;//活动点赞
+	public void insertActComment(String actId, String userId, String actComment) throws MySQLException;//添加点赞
+	public List<ActComment> findActCommentDesc(String actId) throws MySQLException;//查找具体的活动评论
 }

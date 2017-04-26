@@ -16,7 +16,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<!-- 新增 -->
-	<insert id="insert" parameterType="com.comingo.domain.ActComment">
+	<insert id="insertActComment" parameterType="com.comingo.domain.ActComment">
 		insert into act_comment (act_id,user_id,act_comment_desc,act_comment_create_time)
 		values 
 		(	#{actId},
@@ -30,5 +30,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		delete from act_comment
 		where act_id = #{actId}
 	</delete>
-
+	<!-- 根据actId查询评论的个数 -->
+	<select id="findActCommentCountByActId" parameterType="string" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM act_comment
+		WHERE act_id = #{actId}
+	</select>
+	<!-- 查询评论内容 -->
+	<select id="findActCommentDesc" parameterType="string" resultMap="actCommentRM">
+		select * from act_comment
+		where act_id = #{act_id}
+	</select>
 </mapper>

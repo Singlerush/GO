@@ -3,7 +3,7 @@
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.comingo.mapper.ActivityMapper">
+<mapper namespace="com.comingo.mapper.ActLikeMapper">
 	<!-- resultMap映射 -->
 	<resultMap type="com.comingo.domain.ActLike" id="actLikeRM">
 		<!-- 主键 -->
@@ -14,12 +14,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 	
 	<!-- 新增 -->
-	<insert id="insertLike" parameterType="com.comingo.domain.ActLike">
+	<insert id="insertActLike" parameterType="com.comingo.domain.ActLike" >
 		insert into act_like (act_id,user_id,act_like_create_time)
 		values 
 		(	#{actId},
 			#{userId},
-			#{act_like_create_time}
+			#{actLikeCreateTime}
 		)
 	</insert>
 	<!-- 删除 -->
@@ -28,4 +28,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		where act_id = #{actId}
 	</delete>
 	
+	<!-- 根据actId查询点赞的个数 -->
+	<select id="findActLikeCountByActId" parameterType="string" resultType="java.lang.Integer">
+		SELECT COUNT(*) FROM act_like
+		WHERE act_id = #{actId}
+	</select>
+	<!--  -->
 </mapper>

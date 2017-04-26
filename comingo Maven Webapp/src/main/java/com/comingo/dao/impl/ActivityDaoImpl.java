@@ -1,8 +1,10 @@
 package com.comingo.dao.impl;
 
 
+import java.util.List;
 import java.util.Map;
 
+import org.junit.Test;
 import org.springframework.stereotype.Repository;
 
 import com.comingo.dao.ActivityDao;
@@ -20,5 +22,13 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements ActivityDa
 
 	public void insertActivity(Activity activity) {
 		super.getSqlSession().insert(super.getNs() + ".insertActivity", activity);
+	}
+
+	public List<Activity> findActList(String userId) {
+		return super.getSqlSession().selectList(super.getNs() + ".findActList", userId);
+	}
+
+	public List<Activity> findActByKeyword(Map map) {
+		return super.getSqlSession().selectList(super.getNs() + ".findActByKeyword", map);
 	}
 }

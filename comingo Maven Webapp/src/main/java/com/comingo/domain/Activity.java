@@ -18,6 +18,7 @@ public class Activity {
 	private Date publishTime;
 	private String contactName;
 	private String contactTel;
+	private String actLocation;
 	public String getActId() {
 		return actId;
 	}
@@ -101,6 +102,12 @@ public class Activity {
 	}
 	public void setContactTel(String contactTel) {
 		this.contactTel = contactTel;
+	}
+	public String getActLocation() {
+		return actLocation;
+	}
+	public void setActLocation(String actLocation) {
+		this.actLocation = actLocation;
 	}
 	
 	

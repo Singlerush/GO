@@ -21,12 +21,18 @@ public class ActLikeDaoImpl extends BaseDaoImpl<ActLike> implements ActLikeDao {
 		super.setNs("com.comingo.mapper.ActLikeMapper");
 	}
 
-	public void insertLike(ActLike actLike) {
-		super.getSqlSession().insert(super.getNs()+".insertLike" , actLike);
+	public void insertActLike(ActLike actLike) {
+		super.getSqlSession().insert(super.getNs()+".insertActLike" , actLike);
 	}
 
 	public void deleteLikeById(Serializable id) {
 		super.getSqlSession().delete(super.getNs()+".deleteLikeById" , id);
 	}
+
+	public int findActLikeCountByActId(Serializable id) {
+		return super.getSqlSession().selectOne(super.getNs()+".findActLikeCountByActId", id);
+	}
+
+
 
 }

@@ -22,11 +22,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		<result property="publishTime" column="publishTime"/>
 		<result property="contactName" column="contact_name"/>
 		<result property="contactTel" column="contact_tel"/>
+		<result property="actLocation" column="act_location"/>
+		
 	</resultMap>
 	
 	<!-- 新增 -->
 	<insert id="insertActivity" parameterType="com.comingo.domain.Activity">
-		insert into activity (act_id,user_id,act_beginTime,act_endTime,applyDateLine,act_label,act_title,act_desc,act_pic,act_longitude,act_latitude,publishTime,contact_name,contact_tel)
+		insert into activity (act_id,user_id,act_beginTime,act_endTime,applyDateLine,act_label,act_title,act_desc,act_pic,act_longitude,act_latitude,publishTime,contact_name,contact_tel,act_location)
 		values 
 		(	#{actId},
 			#{userId},
@@ -41,7 +43,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{actLatitude},
 			#{publishTime},
 			#{contactName},
-			#{contactTel}
+			#{contactTel},
+			#{actLocation}
 		)
 	</insert>
 	<!-- 查询一个（常用于修改）  -->
@@ -75,8 +78,17 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="publishTime != null">publishTime=#{publishTime},</if>
 			<if test="contactName != null">contact_name=#{contactName},</if>
 			<if test="contactTel != null">contact_tel=#{contactTel},</if>
+			<if test="actLocation != null">act_location=#{actLocation},</if>
 		</set>
 		where act_id=#{actId}
 	</update>
-	
+	<!-- 查询所有的活动列表 -->
+	<select id="findActList" parameterType="string" resultMap="activityRM">
+		select * from activity
+	</select>
+	<!-- 根据关键字查询活动 -->
+	<select id="findActByKeyword" parameterType="map" resultMap="activityRM">
+		select * from activity
+		where act_title like #{keyword}
+	</select>
 </mapper>
