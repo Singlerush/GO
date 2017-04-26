@@ -35,6 +35,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 	 * 添加社团账号
 	 */
 	public void insert(OrgInfo orgInfo) {
+		
 		UserInfo userInfo = new UserInfo();
 		String userId = UUID.randomUUID().toString();
 		userInfo.setUserId(userId);
