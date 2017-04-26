@@ -30,8 +30,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- 根据actId查询点赞的个数 -->
 	<select id="findActLikeCountByActId" parameterType="string" resultType="java.lang.Integer">
-		SELECT COUNT(*) FROM act_like
-		WHERE act_id = #{actId}
+		select count(*) from act_like
+		where act_id = #{actId}
 	</select>
-	<!--  -->
+	<!-- 通过actId和userId查找该用户是否点赞 -->
+	<select id="findActLike" parameterType="map" resultMap="actLikeRM">
+		select * from act_like
+		WHERE act_id = #{actId} and user_id = #{userId}
+	</select>
 </mapper>

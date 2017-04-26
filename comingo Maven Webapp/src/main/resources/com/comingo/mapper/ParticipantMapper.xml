@@ -22,5 +22,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			#{participateTime}
 		)
 	</insert>
-
+	<!-- 通过actId和userId查找该用户是否参加活动 -->
+	<select id="findParticipate" parameterType="map" resultMap="participantRM">
+		select * from participant
+		WHERE act_id = #{actId} and user_id = #{userId}
+	</select>
 </mapper>

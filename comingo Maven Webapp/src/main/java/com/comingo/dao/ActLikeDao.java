@@ -13,4 +13,5 @@ public interface ActLikeDao extends BaseDao<ActLike> {
 	public void deleteLikeById(Serializable id);
 	public int findActLikeCountByActId(@Param("actId")Serializable actId);
 	public void insertActLike(ActLike actLike);
+	public ActLike findActLike(Map map);
 }	

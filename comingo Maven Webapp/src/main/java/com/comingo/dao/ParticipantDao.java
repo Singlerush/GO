@@ -10,4 +10,6 @@ import com.comingo.domain.Participant;
 
 public interface ParticipantDao extends BaseDao<Participant> {
 	public void insertParticipant(Participant participant);
+
+	public Participant findParticipate(Map map);
 }

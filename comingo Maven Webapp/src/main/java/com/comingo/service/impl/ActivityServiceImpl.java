@@ -169,4 +169,18 @@ public class ActivityServiceImpl implements ActivityService {
 		participant.setParticipateTime(new Date());
 		participantDao.insertParticipant(participant);
 	}
+
+	public ActLike findActLike(String actId, String userId){
+		Map map = new HashMap();
+		map.put("actId", actId);
+		map.put("userId", userId);
+		return actLikeDao.findActLike(map);
+	}
+
+	public Participant findParticipate(String actId, String userId) {
+		Map map = new HashMap();
+		map.put("actId", actId);
+		map.put("userId", userId);
+		return participantDao.findParticipate(map);
+	}
 }

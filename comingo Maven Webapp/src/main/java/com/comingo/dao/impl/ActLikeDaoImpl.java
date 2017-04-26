@@ -33,6 +33,10 @@ public class ActLikeDaoImpl extends BaseDaoImpl<ActLike> implements ActLikeDao {
 		return super.getSqlSession().selectOne(super.getNs()+".findActLikeCountByActId", id);
 	}
 
+	public ActLike findActLike(Map map) {
+		return super.getSqlSession().selectOne(super.getNs()+".findActLike", map);
+	}
+
 
 
 }

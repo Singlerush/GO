@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.comingo.domain.ActComment;
+import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Participant;
@@ -32,4 +33,6 @@ public interface ActivityService {
 	public void insertActComment(String actId, String userId, String actComment) throws MySQLException;//添加点赞
 	public List<ActComment> findActCommentDesc(String actId) throws MySQLException;//查找具体的活动评论
 	public void insertParticipant(String actId,String userId) throws MySQLException;//将actId和userId关联
+	public ActLike findActLike(String actId,String userId);//根据actId和userId查找点赞，确定用户有没有点赞
+	public Participant findParticipate(String actId, String userId);//根据actId和userId查找参与活动的状态，确定用户有没有参加活动
 }

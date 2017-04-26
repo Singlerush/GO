@@ -26,4 +26,8 @@ public class ParticipantDaoImpl extends BaseDaoImpl<Participant> implements Part
 		super.getSqlSession().insert(super.getNs()+".insertParticipant",participant);
 	}
 
+	public Participant findParticipate(Map map) {
+		return super.getSqlSession().selectOne(super.getNs()+".findParticipate",map);
+	}
+
 }

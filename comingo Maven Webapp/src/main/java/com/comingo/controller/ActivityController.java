@@ -16,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.comingo.domain.ActComment;
+import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
+import com.comingo.domain.Participant;
 import com.comingo.domain.StatusCode;
 import com.comingo.domain.UserInfo;
 import com.comingo.exception.MySQLException;
@@ -45,20 +47,31 @@ public class ActivityController extends BaseController {
 	public @ResponseBody
 	JSONObject getActivityDetails(String actId, String userId) {
 		Activity activity = null;
-		int actLikeCount = 0;
-		int actCommentCount = 0;
+		int actLikeCount = 0;//活动点赞数
+		int actCommentCount = 0;//活动评论数
+		int isActLikeFlag = 0;//是否点赞，默认没有
+		int isParticipateFlag = 0;//是否参与活动，默认没有
 		JSONObject json = new JSONObject();  
 		try{
 			if(actId==null) throw new ParamsErrorException();
 			activity = activityService.get(actId);
 			actLikeCount = activityService.findActLikeCountByActId(actId);
 			actCommentCount = activityService.findActCommentCountByActId(actId);
-//			boolean isActLike = activityService.isActLike(userId);
+			ActLike actLike = activityService.findActLike(actId,userId);
+			if(actLike!=null){
+				isActLikeFlag = 1;
+			}
+			Participant participate =activityService.findParticipate(actId,userId);
+			if(participate!=null){
+				isParticipateFlag= 1;
+			}
 			if(activity==null) throw new QueryFailedException();
 			json.putAll(json.fromObject(successcode));
 			json.put("activity",activity);
 			json.put("actLikeCount",actLikeCount);
 			json.put("actCommentCount",actCommentCount);
+			json.put("isActLikeFlag",isActLikeFlag);
+			json.put("isParticipateFlag",isParticipateFlag);
 			return json;
 		}catch(ParamsErrorException e){
 			return json.fromObject(e.getSc());
