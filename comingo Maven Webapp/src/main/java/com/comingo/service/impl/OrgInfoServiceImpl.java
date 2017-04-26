@@ -105,5 +105,12 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		return null;
 	}
 
+	public void findOrgByEMail(String email) throws RuntimeException {
+		// TODO Auto-generated method stub
+		if((userInfoDao.findOrgByEmail(email)!=null)){
+			throw new RuntimeException("该邮箱已经被注册");
+		}
+	}
+
 	
 }

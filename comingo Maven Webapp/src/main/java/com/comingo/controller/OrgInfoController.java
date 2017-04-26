@@ -32,7 +32,7 @@ public class OrgInfoController extends BaseController {
 	
 	/**
 	 * 组织用户注册
-	 * @param orginfo
+	 * @param userinfo orginfo
 	 * @return
 	 */
 	@RequestMapping(value = "/orginfo", method = RequestMethod.POST)
@@ -48,6 +48,25 @@ public class OrgInfoController extends BaseController {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
+	
+	/**
+	 * 组织用户注册邮箱验证
+	 * @param 
+	 * @return
+	 */
+	@RequestMapping(value = "/orginfoEmail", method = RequestMethod.GET)
+	public @ResponseBody
+	JSONObject verifyEmail(String email){
+		JSONObject json = new JSONObject();  
+		try{
+			orgInfoService.findOrgByEMail(email);
+			json.putAll(json.fromObject(successcode));
+			return json;
+		}catch(RuntimeException e){
+			return json.fromObject(new StatusCode(100012, "Already Existed"));
+		}
+	}
+	
 	
 	/**
 	 * 组织用户信息获取
@@ -80,10 +99,10 @@ public class OrgInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/orglogin", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject UserLogin(String username, String password){
+	JSONObject UserLogin(String email, String password){
 		JSONObject json = new JSONObject();  
 		try{
-			if(username==null||password==null) throw new ParamsErrorException();
+			if(email==null||password==null) throw new ParamsErrorException();
 			if(true)
 				json.putAll(json.fromObject(successcode));
 			else

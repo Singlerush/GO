@@ -15,7 +15,7 @@ public interface UserInfoService {
 	public List<UserInfo> findPage(Page page);		//分页查询
 	public List<UserInfo> find(Map paraMap);		//带条件查询，条件可以为null，既没有条件；返回list对象集合
 	public UserInfo get(Serializable id);			//只查询一个，常用于修改
-	UserInfo findUserByMobile(String mobile);			//根据手机号查找用户，用作唯一标识
+	public UserInfo findUserByMobile(String mobile);			//根据手机号查找用户，用作唯一标识
 	
 	public void insert(UserInfo userInfo) throws MySQLException;			//插入，用实体作为参数
 	public void update(UserInfo userInfo);			//修改，用实体作为参数
