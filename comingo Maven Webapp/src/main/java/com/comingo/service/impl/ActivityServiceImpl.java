@@ -19,11 +19,13 @@ import com.comingo.dao.ActCommentDao;
 import com.comingo.dao.ActLikeDao;
 import com.comingo.dao.ActivityDao;
 import com.comingo.dao.OrgInfoDao;
+import com.comingo.dao.ParticipantDao;
 import com.comingo.dao.UserInfoDao;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
 import com.comingo.domain.OrgInfo;
+import com.comingo.domain.Participant;
 import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
 import com.comingo.exception.LoginFailedException;
@@ -42,6 +44,8 @@ public class ActivityServiceImpl implements ActivityService {
 	ActCommentDao actCommentDao;
 	@Resource 
 	ActLikeDao actLikeDao;
+	@Resource
+	ParticipantDao participantDao;
 	
 	
 	public List<Activity> findPage(Page page) {
@@ -76,7 +80,7 @@ public class ActivityServiceImpl implements ActivityService {
 		activity.setActPic(activity.getActPic());
 		activity.setActLongitude(activity.getActLongitude());
 		activity.setActLatitude(activity.getActLatitude());
-		activity.setPublishTime(activity.getPublishTime());
+		activity.setPublishTime(new Date());
 		activity.setContactName(activity.getContactName());
 		activity.setContactTel(activity.getContactTel());
 		activity.setActLocation(activity.getActLocation());
@@ -121,7 +125,7 @@ public class ActivityServiceImpl implements ActivityService {
 	public List<Activity> findActByKeyword(String userId,String keyword) throws MySQLException {
 		Map map = new HashMap();
 		map.put("userId", userId);
-		map.put("keyword", keyword);
+		map.put("keyword", "%"+keyword+"%");
 		return activityDao.findActByKeyword(map);
 	}
 	/**
@@ -154,5 +158,15 @@ public class ActivityServiceImpl implements ActivityService {
 			throws MySQLException {
 		return actCommentDao.findActCommentDesc(actId);
 	}
-	
+	/**
+	 * 将actId和userId相关联
+	 */
+	public void insertParticipant(String actId,String userId)
+			throws MySQLException {
+		Participant participant = new Participant();
+		participant.setActId(actId);
+		participant.setUserId(userId);
+		participant.setParticipateTime(new Date());
+		participantDao.insertParticipant(participant);
+	}
 }

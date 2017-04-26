@@ -1,28 +1,29 @@
 package com.comingo.domain;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class Participant {
-	private String user_id;
-	private String act_id;
-	private Timestamp participate_time;
-	public String getUser_id() {
-		return user_id;
+	private String userId;
+	private String actId;
+	private Date participateTime;
+	public String getUserId() {
+		return userId;
 	}
-	public void setUser_id(String user_id) {
-		this.user_id = user_id;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
-	public String getAct_id() {
-		return act_id;
+	public String getActId() {
+		return actId;
 	}
-	public void setAct_id(String act_id) {
-		this.act_id = act_id;
+	public void setActId(String actId) {
+		this.actId = actId;
 	}
-	public Timestamp getParticipate_time() {
-		return participate_time;
+	public Date getParticipateTime() {
+		return participateTime;
 	}
-	public void setParticipate_time(Timestamp participate_time) {
-		this.participate_time = participate_time;
+	public void setParticipateTime(Date participateTime) {
+		this.participateTime = participateTime;
 	}
 	
 }

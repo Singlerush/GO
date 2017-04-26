@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.comingo.mapper.ParticipantMapper">
+	<!-- resultMap映射 -->
+	<resultMap type="com.comingo.domain.Participant" id="participantRM">
+		<!-- 主键 -->
+		<id property="actId" column="act_id"/>
+		<!-- 一般属性 -->
+		<result property="userId" column="user_id"/>
+		<result property="participateTime" column="participate_time"/>
+	</resultMap>
+	
+	<!-- 新增 -->
+	<insert id="insertParticipant" parameterType="com.comingo.domain.Participant">
+		insert into participant (act_id,user_id,participate_time)
+		values 
+		(	#{actId},
+			#{userId},
+			#{participateTime}
+		)
+	</insert>
+
+</mapper>
