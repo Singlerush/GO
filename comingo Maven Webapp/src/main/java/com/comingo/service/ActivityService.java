@@ -8,6 +8,7 @@ import java.util.Map;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.Activity;
 import com.comingo.domain.OrgInfo;
+import com.comingo.domain.Participant;
 import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
 import com.comingo.exception.MySQLException;
@@ -30,4 +31,5 @@ public interface ActivityService {
 	public void insertActLike(String actId, String userId) throws MySQLException;//活动点赞
 	public void insertActComment(String actId, String userId, String actComment) throws MySQLException;//添加点赞
 	public List<ActComment> findActCommentDesc(String actId) throws MySQLException;//查找具体的活动评论
+	public void insertParticipant(String actId,String userId) throws MySQLException;//将actId和userId关联
 }
