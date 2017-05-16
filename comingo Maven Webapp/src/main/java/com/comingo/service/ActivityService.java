@@ -2,6 +2,7 @@ package com.comingo.service;
 
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +36,5 @@ public interface ActivityService {
 	public void insertParticipant(String actId,String userId) throws MySQLException;//将actId和userId关联
 	public ActLike findActLike(String actId,String userId);//根据actId和userId查找点赞，确定用户有没有点赞
 	public Participant findParticipate(String actId, String userId);//根据actId和userId查找参与活动的状态，确定用户有没有参加活动
+	public List<Activity> findActScheduleList(String userId) throws MySQLException;//获取活动日程
 }

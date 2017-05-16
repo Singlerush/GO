@@ -1,6 +1,7 @@
 package com.comingo.controller;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -116,6 +117,25 @@ public class ActivityController extends BaseController {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
+	/**
+	 * 获取活动日程
+	 * @param userId
+	 * @param actBeginTime
+	 * @return
+	 */
+	@RequestMapping(value = "/actSchedule", method = RequestMethod.GET)
+	public @ResponseBody
+	JSONObject getActScheduleList(String userId){
+		JSONObject json = new JSONObject();  
+		try{
+			List<Activity> actScheduleList = activityService.findActScheduleList(userId);
+			json.putAll(json.fromObject(successcode));
+			json.put("actScheduleList", actScheduleList);
+			return json;
+		}catch(MySQLException sqle){
+			return json.fromObject(new StatusCode(10001, "Database Error"));
+		}
+	}
 	
 	
 	/**
@@ -220,4 +240,7 @@ public class ActivityController extends BaseController {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
+	
+	
+	
 }	
