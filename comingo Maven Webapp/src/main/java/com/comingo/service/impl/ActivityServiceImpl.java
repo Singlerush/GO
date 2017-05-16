@@ -1,8 +1,7 @@
 package com.comingo.service.impl;
 
 import java.io.Serializable;
-import java.lang.reflect.InvocationTargetException;
-import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,29 +10,21 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.comingo.dao.ActCommentDao;
 import com.comingo.dao.ActLikeDao;
 import com.comingo.dao.ActivityDao;
-import com.comingo.dao.OrgInfoDao;
 import com.comingo.dao.ParticipantDao;
-import com.comingo.dao.UserInfoDao;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
-import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Participant;
-import com.comingo.domain.Test;
 import com.comingo.domain.UserInfo;
-import com.comingo.exception.LoginFailedException;
 import com.comingo.exception.MySQLException;
 import com.comingo.pagination.Page;
 import com.comingo.service.ActivityService;
-import com.comingo.service.OrgInfoService;
-import com.comingo.util.MD5Util;
+import com.comingo.util.TimeToStringUtil;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -182,5 +173,19 @@ public class ActivityServiceImpl implements ActivityService {
 		map.put("actId", actId);
 		map.put("userId", userId);
 		return participantDao.findParticipate(map);
+	}
+
+
+	public List<Activity> findActScheduleList(String userId) throws MySQLException {
+		Map map = new HashMap();
+		Date todayDate = new Date();
+		String todayDateStr = TimeToStringUtil.timeToString(todayDate);
+		map.put("todayDateStr", todayDateStr);
+		map.put("userId", userId);
+		return activityDao.findActScheduleList(map);
+	}
+
+	public List<Activity> findActByUserId(String userId) {
+		return activityDao.findActByUserId(userId);
 	}
 }

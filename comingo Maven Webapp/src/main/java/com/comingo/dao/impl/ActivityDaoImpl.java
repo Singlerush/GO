@@ -31,4 +31,12 @@ public class ActivityDaoImpl extends BaseDaoImpl<Activity> implements ActivityDa
 	public List<Activity> findActByKeyword(Map map) {
 		return super.getSqlSession().selectList(super.getNs() + ".findActByKeyword", map);
 	}
+
+	public List<Activity> findActScheduleList(Map map) {
+		return super.getSqlSession().selectList(super.getNs() + ".findActScheduleList", map);
+	}
+
+	public List<Activity> findActByUserId(String userId) {
+		return super.getSqlSession().selectList(super.getNs() + ".findActByUserId", userId);
+	}
 }

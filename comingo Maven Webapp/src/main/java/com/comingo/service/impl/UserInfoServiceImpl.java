@@ -95,4 +95,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfo;
 	}
 
+	public UserInfo findUserById(String userId) {
+		return userInfoDao.findUserById(userId);
+	}
+
 }

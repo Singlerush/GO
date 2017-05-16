@@ -34,7 +34,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<!-- 查询一个（常用于修改）  -->
-	<select id="get" parameterType="string" resultMap="orgInfoRM" >
+	<select id="findOrgByOrgId" parameterType="string" resultMap="orgInfoRM" >
 		select * from org_info
 		where org_id = #{orgId}
 	</select>

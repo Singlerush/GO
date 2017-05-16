@@ -12,4 +12,8 @@ public interface ActivityDao extends BaseDao<Activity> {
 	public List<Activity> findActList(String userId);
 
 	public List<Activity> findActByKeyword(Map map);
+
+	public List<Activity> findActScheduleList(Map map);
+
+	public List<Activity> findActByUserId(String userId);
 }

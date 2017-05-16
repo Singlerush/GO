@@ -22,4 +22,6 @@ public interface OrgInfoService {
 	public void deleteById(Serializable id) throws MySQLException;		//按id删除，删除一条；支持整数型和字符串类型ID
 	public void delete(Serializable[] ids);			//批量删除；支持整数型和字符串类型ID
 	public void findOrgByEMail(String email) throws RuntimeException;
+	UserInfo findOrgByEmail(String email); //根据邮箱查找用户
+	public OrgInfo findOrgByOrgId(String orgId);//根据社团id查找社团
 }

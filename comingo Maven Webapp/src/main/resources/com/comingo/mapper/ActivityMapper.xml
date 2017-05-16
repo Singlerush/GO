@@ -86,9 +86,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<select id="findActList" parameterType="string" resultMap="activityRM">
 		select * from activity
 	</select>
+	<select id="findActByUserId" parameterType="string" resultMap="activityRM">
+		select * from activity
+		where user_id = #{userId}
+	</select>
 	<!-- 根据关键字查询活动 -->
 	<select id="findActByKeyword" parameterType="map" resultMap="activityRM">
 		select * from activity
 		where act_title like #{keyword}
+	</select>
+	<!-- 根据活动开始时间获取用户的日程 -->
+	<select id="findActScheduleList" parameterType="map" resultMap="activityRM">
+		select * from activity
+		where user_id=#{userId} and act_beginTime &lt;= #{todayDateStr}
 	</select>
 </mapper>

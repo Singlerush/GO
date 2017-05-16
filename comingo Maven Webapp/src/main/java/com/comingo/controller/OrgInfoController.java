@@ -12,56 +12,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.StatusCode;
 import com.comingo.domain.UserInfo;
+import com.comingo.exception.ExistenceException;
 import com.comingo.exception.LoginFailedException;
 import com.comingo.exception.MySQLException;
 import com.comingo.exception.ParamsErrorException;
 import com.comingo.exception.QueryFailedException;
 import com.comingo.service.OrgInfoService;
+import com.comingo.service.UserInfoService;
 
 @Controller
 public class OrgInfoController extends BaseController {
 	@Resource
 	OrgInfoService orgInfoService;
+	@Resource
+	UserInfoService userInfoService;
 
 	final private StatusCode successcode = new StatusCode(200, "OK");
 
 	/**
 	 * 组织用户注册
-	 * 
 	 * @param userinfo
-	 *            orginfo
+	 * @param orginfo
 	 * @return
 	 */
 	@RequestMapping(value = "/orginfo", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject sayPOST(UserInfo userInfo, OrgInfo orgInfo) {
+	JSONObject sayPOST(UserInfo userInfo, OrgInfo orgInfo)  {
 		JSONObject json = new JSONObject();
 		try {
+			String email = userInfo.getEmail();
 			orgInfo.setUserInfo(userInfo);
+			if(orgInfoService.findOrgByEmail(email)!=null){
+				throw new ExistenceException();
+			}
 			orgInfoService.insert(orgInfo);
 			json.putAll(json.fromObject(successcode));
 			return json;
 		} catch (MySQLException sqle) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
-		}
-	}
-
-	/**
-	 * 组织用户注册邮箱验证
-	 * 
-	 * @param
-	 * @return
-	 */
-	@RequestMapping(value = "/orginfoEmail", method = RequestMethod.GET)
-	public @ResponseBody
-	JSONObject verifyEmail(String email) {
-		JSONObject json = new JSONObject();
-		try {
-			orgInfoService.findOrgByEMail(email);
-			json.putAll(json.fromObject(successcode));
-			return json;
-		} catch (RuntimeException e) {
-			return json.fromObject(new StatusCode(100012, "Already Existed"));
+		} catch(ExistenceException e){
+			return json.fromObject(new StatusCode(10009,"Already Existence"));
 		}
 	}
 
@@ -73,16 +63,24 @@ public class OrgInfoController extends BaseController {
 	 */
 	@RequestMapping(value = "/orginfo", method = RequestMethod.GET)
 	public @ResponseBody
-	JSONObject UserInfo(String id) {
+	JSONObject OrgInfo(String orgId) {
 		JSONObject json = new JSONObject();
 		try {
-			if (id == null)
-				throw new ParamsErrorException();
-			OrgInfo orgInfo = orgInfoService.get(id);
-			if (orgInfo == null)
+			//根据id查找用户
+			UserInfo userInfo = userInfoService.findUserById(orgId);
+			if(userInfo==null){
 				throw new QueryFailedException();
+			}
+			if (orgId == null){
+				throw new ParamsErrorException();
+			}
+			OrgInfo orgInfo = orgInfoService.findOrgByOrgId(orgId);
+			orgInfo.setUserInfo(userInfo);
+			if (orgInfo == null){
+				throw new QueryFailedException();
+			}
 			json.putAll(json.fromObject(successcode));
-			json.put("OrgInfo", orgInfo);
+			json.put("orgInfo", orgInfo);
 			return json;
 		} catch (ParamsErrorException e) {
 			return json.fromObject(e.getSc());
@@ -90,10 +88,11 @@ public class OrgInfoController extends BaseController {
 			return json.fromObject(e.getSc());
 		}
 	}
+	
 
+	
 	/**
 	 * 组织用户登录
-	 * 
 	 * @param username
 	 * @param password
 	 * @return
@@ -116,23 +115,17 @@ public class OrgInfoController extends BaseController {
 			return json.fromObject(e.getSc());
 		}
 	}
-
 	/**
-	 * 组织邮箱检测
-	 * 
-	 * @param moblile
-	 * @return
+	 * 组织用户激活
 	 */
-	/*
-	 * @RequestMapping(value = "/userreg", method = RequestMethod.GET) public
-	 * @ResponseBody JSONObject OrgRegister(String email) { JSONObject json =
-	 * new JSONObject(); try { if (email == null) throw new
-	 * ParamsErrorException(); OrgInfo orgInfo =
-	 * orgInfoService.findOrgByEMail(email); if (orgInfo == null) {
-	 * json.putAll(json.fromObject(successcode)); } else throw new
-	 * ExistenceException(); return json; } catch (ParamsErrorException e) {
-	 * return json.fromObject(e.getSc()); } catch (ExistenceException e) {
-	 * return json.fromObject(e.getSc()); } }
-	 */
+//	@RequestMapping(value = "/orgActive", method = RequestMethod.POST)
+//	public @ResponseBody
+//	JSONObject orgActive(String id) {
+//		JSONObject json = new JSONObject();
+//		try {
+//			
+//		} catch (Exception e) {
+//		} 
+//	}
 
 }

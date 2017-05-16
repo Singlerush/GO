@@ -79,10 +79,8 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		
 		return orgInfoDao.findOrgByEMailAndPSW(paraMap);
 	}
-
-	public OrgInfo get(Serializable id) {
-		
-		return null;
+	public OrgInfo findOrgByOrgId(String orgId) {
+		return orgInfoDao.findOrgByOrgId(orgId);
 	}
 
 	public void update(OrgInfo orgInfo) {
@@ -111,6 +109,16 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 			throw new RuntimeException("该邮箱已经被注册");
 		}
 	}
+	public UserInfo findOrgByEmail(String email){
+		return userInfoDao.findOrgByEmail(email);
+	}
+
+	public OrgInfo get(Serializable id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 }
