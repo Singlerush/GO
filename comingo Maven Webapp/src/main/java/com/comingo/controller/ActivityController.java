@@ -36,8 +36,6 @@ public class ActivityController extends BaseController {
 	UserInfoService userInfoService;
 	
 	final private StatusCode successcode = new StatusCode(200, "OK");
-	
-	
 	/**
 	 * 查看活动详情
 	 * 返回活动详情，点赞数，评论数，用户是否已参与，用户是否已点赞(0：否，1：是)
@@ -128,6 +126,8 @@ public class ActivityController extends BaseController {
 	JSONObject getActScheduleList(String userId){
 		JSONObject json = new JSONObject();  
 		try{
+			List<Activity> activities = activityService.findActByUserId(userId);
+			System.out.println(activities.get(0).getActBeginTime());
 			List<Activity> actScheduleList = activityService.findActScheduleList(userId);
 			json.putAll(json.fromObject(successcode));
 			json.put("actScheduleList", actScheduleList);

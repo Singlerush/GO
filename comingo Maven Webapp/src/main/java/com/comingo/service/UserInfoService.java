@@ -22,4 +22,5 @@ public interface UserInfoService {
 	public void deleteById(Serializable id) throws MySQLException;		//按id删除，删除一条；支持整数型和字符串类型ID
 	public void delete(Serializable[] ids);			//批量删除；支持整数型和字符串类型ID
 	public UserInfo findUserByMobileAndPSW(String mobile,String password);//根据用户名和密码查找用户，并返回用户id
+	public UserInfo findUserById(String userId);
 }

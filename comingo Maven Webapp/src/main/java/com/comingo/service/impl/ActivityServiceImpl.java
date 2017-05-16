@@ -20,9 +20,11 @@ import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
 import com.comingo.domain.Participant;
+import com.comingo.domain.UserInfo;
 import com.comingo.exception.MySQLException;
 import com.comingo.pagination.Page;
 import com.comingo.service.ActivityService;
+import com.comingo.util.TimeToStringUtil;
 
 @Service
 public class ActivityServiceImpl implements ActivityService {
@@ -172,19 +174,18 @@ public class ActivityServiceImpl implements ActivityService {
 		map.put("userId", userId);
 		return participantDao.findParticipate(map);
 	}
-//
-//	public List<Activity> findActScheduleList(String userId) throws MySQLException {
-//		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-//		String todayDate = format.format(new Date());
-//		Map map = new HashMap();
-//		map.put("userId", userId);
-//		map.put("todayDate", todayDate);
-//		return activityDao.findActScheduleList(map);
-//	}
 
-	public List<Activity> findActScheduleList(String userId)
-			throws MySQLException {
-		// TODO Auto-generated method stub
-		return null;
+
+	public List<Activity> findActScheduleList(String userId) throws MySQLException {
+		Map map = new HashMap();
+		Date todayDate = new Date();
+		String todayDateStr = TimeToStringUtil.timeToString(todayDate);
+		map.put("todayDateStr", todayDateStr);
+		map.put("userId", userId);
+		return activityDao.findActScheduleList(map);
+	}
+
+	public List<Activity> findActByUserId(String userId) {
+		return activityDao.findActByUserId(userId);
 	}
 }

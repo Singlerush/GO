@@ -4,7 +4,7 @@ import com.comingo.domain.StatusCode;
 
 public class ExistenceException extends Exception {
 	// 查询失败
-	// 错误码:10002 错误信息：query failed
+	// 错误码:10009 错误信息：Already Existence
 	StatusCode sc = new StatusCode(10009, "Already Existence");
 
 	public ExistenceException() {

@@ -23,4 +23,8 @@ public class OrgInfoDaoImpl extends BaseDaoImpl<OrgInfo> implements OrgInfoDao {
 	public OrgInfo findOrgByEmail(String email) {
 		return super.getSqlSession().selectOne(super.getNs()+".findUserByEmail",email);
 	}
+	
+	public OrgInfo findOrgByOrgId(String orgId){
+		return super.getSqlSession().selectOne(super.getNs()+".findOrgByOrgId",orgId);
+	}
 }

@@ -37,4 +37,5 @@ public interface ActivityService {
 	public ActLike findActLike(String actId,String userId);//根据actId和userId查找点赞，确定用户有没有点赞
 	public Participant findParticipate(String actId, String userId);//根据actId和userId查找参与活动的状态，确定用户有没有参加活动
 	public List<Activity> findActScheduleList(String userId) throws MySQLException;//获取活动日程
+	public List<Activity> findActByUserId(String userId);//通过用户id查找活动
 }
