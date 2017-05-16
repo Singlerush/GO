@@ -99,4 +99,10 @@ public class UserInfoServiceImpl implements UserInfoService {
 		return userInfoDao.findUserById(userId);
 	}
 
+	public void updateUserInfo(UserInfo userInfo) {
+		String md5Pwd = MD5Util.makeMD5(userInfo.getPassword());
+		userInfo.setPassword(md5Pwd);
+		userInfoDao.update(userInfo);
+	}
+
 }

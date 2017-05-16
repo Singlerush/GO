@@ -85,6 +85,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="profilePic != null">profile_pic=#{profilePic},</if>
 			<if test="birthday != null">birthday=#{birthday},</if>
 			<if test="mobile != null">mobile=#{mobile},</if>
+			<if test="mobile != null">email=#{email},</if>
 			<if test="userType != null">user_type=#{userType},</if>
 			<if test="registerTime != null">register_time=#{registerTime},</if>
 		</set>
