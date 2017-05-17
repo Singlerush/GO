@@ -27,4 +27,8 @@ public class OrgInfoDaoImpl extends BaseDaoImpl<OrgInfo> implements OrgInfoDao {
 	public OrgInfo findOrgByOrgId(String orgId){
 		return super.getSqlSession().selectOne(super.getNs()+".findOrgByOrgId",orgId);
 	}
+
+	public void changeActivateState(OrgInfo orgInfo) {
+		super.getSqlSession().update(super.getNs()+".changeActivateState",orgInfo);
+	}
 }

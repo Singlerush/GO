@@ -24,4 +24,6 @@ public interface OrgInfoService {
 	public void findOrgByEMail(String email) throws RuntimeException;
 	UserInfo findOrgByEmail(String email); //根据邮箱查找用户
 	public OrgInfo findOrgByOrgId(String orgId);//根据社团id查找社团
+	public void sendEmail(String url,String email) throws Exception;//邮箱验证
+	public void changeActivateState(OrgInfo orgInfo);//修改邮箱激活状态
 }

@@ -125,7 +125,6 @@
 			<version>2.4.2</version>
 		</dependency>
 
-
 		<!-- 防止和tomcat中的jar冲突 -->
 		<dependency>
 			<groupId>org.apache.tomcat</groupId>
