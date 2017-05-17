@@ -46,15 +46,17 @@ public class OrgInfoController extends BaseController {
 				throw new ExistenceException();
 			}
 			orgInfoService.insert(orgInfo);
+			orgInfoService.sendEmail("http://shnuecp.com/active.jsp?id="+userInfo.getUserId(), email);
 			json.putAll(json.fromObject(successcode));
 			return json;
 		} catch (MySQLException sqle) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		} catch(ExistenceException e){
 			return json.fromObject(new StatusCode(10009,"Already Existence"));
+		} catch (Exception e) {
+			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
-
 	/**
 	 * 组织用户信息获取
 	 * 
@@ -118,14 +120,18 @@ public class OrgInfoController extends BaseController {
 	/**
 	 * 组织用户激活
 	 */
-//	@RequestMapping(value = "/orgActive", method = RequestMethod.POST)
-//	public @ResponseBody
-//	JSONObject orgActive(String id) {
-//		JSONObject json = new JSONObject();
-//		try {
-//			
-//		} catch (Exception e) {
-//		} 
-//	}
+	@RequestMapping(value = "/orgActive", method = RequestMethod.GET)
+	public @ResponseBody
+	JSONObject orgActive(String orgId) {
+		JSONObject json = new JSONObject();
+		try {
+			OrgInfo orgInfo = orgInfoService.findOrgByOrgId(orgId);
+			orgInfoService.changeActivateState(orgInfo);
+			json.putAll(json.fromObject(successcode));
+			return json; 
+		} catch (Exception e) {
+			return json.fromObject(new StatusCode(10001, "Database Error"));
+		}
+	}
 
 }

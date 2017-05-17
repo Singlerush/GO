@@ -66,12 +66,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			<if test="orgDesc != null">org_desc=#{orgDesc},</if>
 			<if test="leader != null">leader=#{leader},</if>
 			<if test="leaderMobile != null">leader_mobile=#{leaderMobile},</if>
-			<if test="authImg1 != null">authImg1=#{authImg1},</if>
-			<if test="authImg2 != null">authImg2=#{authImg2},</if>
+			<if test="authImg1 != null">auth_img1=#{authImg1},</if>
+			<if test="authImg2 != null">auth_img2=#{authImg2},</if>
 			<if test="activateState != null">activate_state=#{activateState},</if>
 			<if test="verifyState != null">verify_state=#{verifyState},</if>
 		</set>
-		where org_id=#{orgId}
+		where org_id = #{orgId}
 	</update>
-	
 </mapper>

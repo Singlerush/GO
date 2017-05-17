@@ -11,4 +11,6 @@ public interface OrgInfoDao extends BaseDao<OrgInfo> {
 	
 	public OrgInfo findOrgByOrgId(String orgId);
 
+	public void changeActivateState(OrgInfo orgInfo);
+
 }	
