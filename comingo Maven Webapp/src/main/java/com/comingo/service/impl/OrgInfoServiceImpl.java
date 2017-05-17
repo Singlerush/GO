@@ -1,7 +1,6 @@
 package com.comingo.service.impl;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
@@ -10,7 +9,6 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
 
 import org.springframework.stereotype.Service;
 
@@ -133,7 +131,7 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		map.put("mail.smtp.socketFactory.port", "465");
 		mail.setPros(map);
 		mail.initMessage();
-		mail.setDefaultMessagePros("哈哈哈", "760184287@qq.com");
+		mail.setDefaultMessagePros(url, email);
 		mail.sendMessage();
 	}
 

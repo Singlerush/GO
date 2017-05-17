@@ -31,32 +31,35 @@ public class OrgInfoController extends BaseController {
 
 	/**
 	 * 组织用户注册
+	 * 
 	 * @param userinfo
 	 * @param orginfo
 	 * @return
 	 */
 	@RequestMapping(value = "/orginfo", method = RequestMethod.POST)
 	public @ResponseBody
-	JSONObject sayPOST(UserInfo userInfo, OrgInfo orgInfo)  {
+	JSONObject sayPOST(UserInfo userInfo, OrgInfo orgInfo) {
 		JSONObject json = new JSONObject();
 		try {
 			String email = userInfo.getEmail();
 			orgInfo.setUserInfo(userInfo);
-			if(orgInfoService.findOrgByEmail(email)!=null){
+			if (orgInfoService.findOrgByEmail(email) != null) {
 				throw new ExistenceException();
 			}
 			orgInfoService.insert(orgInfo);
-			orgInfoService.sendEmail("http://shnuecp.com/active.jsp?id="+userInfo.getUserId(), email);
+			orgInfoService.sendEmail("http://shnuecp.com/active.jsp?id="
+					+ orgInfo.getOrgId(), email);
 			json.putAll(json.fromObject(successcode));
 			return json;
 		} catch (MySQLException sqle) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
-		} catch(ExistenceException e){
-			return json.fromObject(new StatusCode(10009,"Already Existence"));
+		} catch (ExistenceException e) {
+			return json.fromObject(new StatusCode(10009, "Already Existence"));
 		} catch (Exception e) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
+
 	/**
 	 * 组织用户信息获取
 	 * 
@@ -68,17 +71,17 @@ public class OrgInfoController extends BaseController {
 	JSONObject OrgInfo(String orgId) {
 		JSONObject json = new JSONObject();
 		try {
-			//根据id查找用户
+			// 根据id查找用户
 			UserInfo userInfo = userInfoService.findUserById(orgId);
-			if(userInfo==null){
+			if (userInfo == null) {
 				throw new QueryFailedException();
 			}
-			if (orgId == null){
+			if (orgId == null) {
 				throw new ParamsErrorException();
 			}
 			OrgInfo orgInfo = orgInfoService.findOrgByOrgId(orgId);
 			orgInfo.setUserInfo(userInfo);
-			if (orgInfo == null){
+			if (orgInfo == null) {
 				throw new QueryFailedException();
 			}
 			json.putAll(json.fromObject(successcode));
@@ -90,11 +93,10 @@ public class OrgInfoController extends BaseController {
 			return json.fromObject(e.getSc());
 		}
 	}
-	
 
-	
 	/**
 	 * 组织用户登录
+	 * 
 	 * @param username
 	 * @param password
 	 * @return
@@ -117,6 +119,7 @@ public class OrgInfoController extends BaseController {
 			return json.fromObject(e.getSc());
 		}
 	}
+
 	/**
 	 * 组织用户激活
 	 */
@@ -128,7 +131,7 @@ public class OrgInfoController extends BaseController {
 			OrgInfo orgInfo = orgInfoService.findOrgByOrgId(orgId);
 			orgInfoService.changeActivateState(orgInfo);
 			json.putAll(json.fromObject(successcode));
-			return json; 
+			return json;
 		} catch (Exception e) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
