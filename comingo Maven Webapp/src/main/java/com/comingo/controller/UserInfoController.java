@@ -44,6 +44,24 @@ public class UserInfoController extends BaseController {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
 		}
 	}
+	/**
+	 * 个人用户更新
+	 * 
+	 * @param userinfo
+	 * @return
+	 */
+	@RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+	public @ResponseBody
+	JSONObject updateUserInfo(UserInfo userInfo) {
+		JSONObject json = new JSONObject();
+		try {
+			userInfoService.updateUserInfo(userInfo);
+			json.putAll(json.fromObject(successcode));
+			return json;
+		} catch (MySQLException sqle) {
+			return json.fromObject(new StatusCode(10001, "Database Error"));
+		}
+	}
 
 	/**
 	 * 用户信息获取
@@ -62,7 +80,7 @@ public class UserInfoController extends BaseController {
 			if (userInfo == null)
 				throw new QueryFailedException();
 			json.putAll(json.fromObject(successcode));
-			json.put("UserInfo", userInfo);
+			json.put("userInfo", userInfo);
 			return json;
 		} catch (ParamsErrorException e) {
 			return json.fromObject(e.getSc());
