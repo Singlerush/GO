@@ -2,6 +2,7 @@ package com.comingo.service.impl;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,15 +11,18 @@ import java.util.UUID;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.logging.impl.AvalonLogger;
 import org.springframework.stereotype.Service;
 
 import com.comingo.dao.ActCommentDao;
 import com.comingo.dao.ActLikeDao;
 import com.comingo.dao.ActivityDao;
 import com.comingo.dao.ParticipantDao;
+import com.comingo.dao.UserInfoDao;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
+import com.comingo.domain.ActivityVo;
 import com.comingo.domain.Participant;
 import com.comingo.domain.UserInfo;
 import com.comingo.exception.MySQLException;
@@ -37,6 +41,8 @@ public class ActivityServiceImpl implements ActivityService {
 	ActLikeDao actLikeDao;
 	@Resource
 	ParticipantDao participantDao;
+	@Resource
+	UserInfoDao userInfoDao;
 	
 	
 	public List<Activity> findPage(Page page) {
@@ -187,5 +193,42 @@ public class ActivityServiceImpl implements ActivityService {
 
 	public List<Activity> findActByUserId(String userId) {
 		return activityDao.findActByUserId(userId);
+	}
+
+	public List<ActivityVo> findActList() {
+		List<ActivityVo> activityVos = new ArrayList<ActivityVo>();
+		List<Activity> list = activityDao.find(null);
+		UserInfo userInfo = new UserInfo();
+		
+		for(Activity activity : list){
+			ActivityVo activityVo = new ActivityVo();
+			userInfo = userInfoDao.findUserById(activity.getUserId());
+			String publishUsername = userInfo.getUsername();
+			String actId = activity.getActId();
+			String userId = activity.getUserId();
+			Date actBeginTime = activity.getActBeginTime();
+			Date actEndTime = activity.getActEndTime();
+			Date applyDateLine = activity.getApplyDateLine();
+			String actTitle = activity.getActTitle();
+			String actPic = activity.getActPic();
+			double actLongitude = activity.getActLongitude();
+			double actLatitude  = activity.getActLatitude();
+			String actLocation = activity.getActLocation();
+			
+			activityVo.setUserId(userId);
+			activityVo.setActId(actId);
+			activityVo.setActBeginTime(actBeginTime);
+			activityVo.setActEndTime(actEndTime);
+			activityVo.setApplyDateLine(applyDateLine);
+			activityVo.setActTitle(actTitle);
+			activityVo.setActPic(actPic);
+			activityVo.setActLocation(actLocation);
+			activityVo.setActLatitude(actLatitude);
+			activityVo.setActLongitude(actLongitude);
+			activityVo.setPublishUsername(publishUsername);
+			
+			activityVos.add(activityVo);
+		}
+		return activityVos;
 	}
 }

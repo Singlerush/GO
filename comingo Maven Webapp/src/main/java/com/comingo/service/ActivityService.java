@@ -9,6 +9,7 @@ import java.util.Map;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
+import com.comingo.domain.ActivityVo;
 import com.comingo.domain.OrgInfo;
 import com.comingo.domain.Participant;
 import com.comingo.domain.Test;
@@ -38,4 +39,5 @@ public interface ActivityService {
 	public Participant findParticipate(String actId, String userId);//根据actId和userId查找参与活动的状态，确定用户有没有参加活动
 	public List<Activity> findActScheduleList(String userId) throws MySQLException;//获取活动日程
 	public List<Activity> findActByUserId(String userId);//通过用户id查找活动
+	public List<ActivityVo> findActList() throws MySQLException;//查询活动列表
 }

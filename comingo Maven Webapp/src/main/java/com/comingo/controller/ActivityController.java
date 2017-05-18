@@ -1,6 +1,7 @@
 package com.comingo.controller;
 
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.comingo.domain.ActComment;
 import com.comingo.domain.ActLike;
 import com.comingo.domain.Activity;
+import com.comingo.domain.ActivityVo;
 import com.comingo.domain.Participant;
 import com.comingo.domain.StatusCode;
 import com.comingo.domain.UserInfo;
@@ -117,19 +119,14 @@ public class ActivityController extends BaseController {
 		String username = "";//用户昵称
 		JSONObject json = new JSONObject();  
 		try{
-			List<Activity> actList = activityService.findActList(userId);
-			username = userInfoService.findUsernameByUserId(userId);
-			
+			List<ActivityVo> activityVos = activityService.findActList();
 			JsonConfig config = new JsonConfig();  
 	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
 	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
 	        JSONArray array = new JSONArray();  
-	        array = array.fromObject(actList,config);  
-
+	        array = array.fromObject(activityVos,config); 
 	        json.putAll(json.fromObject(successcode));
 	        json.put("actList", array.toString());
-	        json.put("username", username);
-			
 			return json;
 		}catch(MySQLException sqle){
 			return json.fromObject(new StatusCode(10001, "Database Error"));
