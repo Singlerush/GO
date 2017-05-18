@@ -1,8 +1,12 @@
 package com.comingo.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Controller;
@@ -18,6 +22,7 @@ import com.comingo.exception.MySQLException;
 import com.comingo.exception.ParamsErrorException;
 import com.comingo.exception.QueryFailedException;
 import com.comingo.service.UserInfoService;
+import com.comingo.util.JsonDateValueProcessor;
 
 @Controller
 public class UserInfoController extends BaseController {
@@ -79,8 +84,15 @@ public class UserInfoController extends BaseController {
 			UserInfo userInfo = userInfoService.get(userId);
 			if (userInfo == null)
 				throw new QueryFailedException();
+
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(userInfo,config); 
+			
 			json.putAll(json.fromObject(successcode));
-			json.put("userInfo", userInfo);
+			json.put("userInfo", array.toString());
 			return json;
 		} catch (ParamsErrorException e) {
 			return json.fromObject(e.getSc());

@@ -33,4 +33,8 @@ public class UserInfoDaoImpl extends BaseDaoImpl<UserInfo> implements UserInfoDa
 		return super.getSqlSession().selectOne(super.getNs()+".findUserById", id);
 	}
 
+	public String findUsernameByUserId(String userId) {
+		return super.getSqlSession().selectOne(super.getNs()+".findUsernameByUserId", userId);
+	}
+
 }

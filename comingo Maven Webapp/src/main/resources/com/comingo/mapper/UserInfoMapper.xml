@@ -59,6 +59,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		select * from user_info
 		where user_id = #{id}
 	</select>	
+	<!-- 通过用户id查找用户名称 -->
+	<select id="findUsernameByUserId" parameterType="string" resultType="string">
+		select username from user_info
+		where user_id = #{userId}
+	</select>
 	
 	<!-- 根据手机号查找用户或者社团 -->
 	<select id="findUserByMobile" parameterType="string" resultMap="userInfoRM">

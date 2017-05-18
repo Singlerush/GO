@@ -13,4 +13,6 @@ public interface UserInfoDao extends BaseDao<UserInfo> {
 	UserInfo findOrgByEmail(String email);
 	
 	UserInfo findUserById(String id);
+
+	String findUsernameByUserId(String userId);
 }	

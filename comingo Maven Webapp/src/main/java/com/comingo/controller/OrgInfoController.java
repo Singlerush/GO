@@ -1,8 +1,12 @@
 package com.comingo.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +23,7 @@ import com.comingo.exception.ParamsErrorException;
 import com.comingo.exception.QueryFailedException;
 import com.comingo.service.OrgInfoService;
 import com.comingo.service.UserInfoService;
+import com.comingo.util.JsonDateValueProcessor;
 
 @Controller
 public class OrgInfoController extends BaseController {
@@ -84,8 +89,16 @@ public class OrgInfoController extends BaseController {
 			if (orgInfo == null) {
 				throw new QueryFailedException();
 			}
+			
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(orgInfo,config);  
+			
+			
 			json.putAll(json.fromObject(successcode));
-			json.put("orgInfo", orgInfo);
+			json.put("orgInfo", array.toString());
 			return json;
 		} catch (ParamsErrorException e) {
 			return json.fromObject(e.getSc());

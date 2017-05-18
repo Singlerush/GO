@@ -105,4 +105,8 @@ public class UserInfoServiceImpl implements UserInfoService {
 		userInfoDao.update(userInfo);
 	}
 
+	public String findUsernameByUserId(String userId) {
+		return userInfoDao.findUsernameByUserId(userId);
+	}
+
 }

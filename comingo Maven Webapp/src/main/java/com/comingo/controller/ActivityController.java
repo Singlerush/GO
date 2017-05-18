@@ -3,13 +3,14 @@ package com.comingo.controller;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Resource;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import net.sf.json.JsonConfig;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,6 +28,7 @@ import com.comingo.exception.ParamsErrorException;
 import com.comingo.exception.QueryFailedException;
 import com.comingo.service.ActivityService;
 import com.comingo.service.UserInfoService;
+import com.comingo.util.JsonDateValueProcessor;
 
 @Controller
 public class ActivityController extends BaseController {
@@ -54,6 +56,13 @@ public class ActivityController extends BaseController {
 		try{
 			if(actId==null) throw new ParamsErrorException();
 			activity = activityService.get(actId);
+			
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(activity,config);  
+			
 			actLikeCount = activityService.findActLikeCountByActId(actId);
 			actCommentCount = activityService.findActCommentCountByActId(actId);
 			ActLike actLike = activityService.findActLike(actId,userId);
@@ -66,7 +75,7 @@ public class ActivityController extends BaseController {
 			}
 			if(activity==null) throw new QueryFailedException();
 			json.putAll(json.fromObject(successcode));
-			json.put("activity",activity);
+			json.put("activity",array.toString());
 			json.put("actLikeCount",actLikeCount);
 			json.put("actCommentCount",actCommentCount);
 			json.put("isActLikeFlag",isActLikeFlag);
@@ -105,11 +114,22 @@ public class ActivityController extends BaseController {
 	@RequestMapping(value = "/activityList", method = RequestMethod.GET)
 	public @ResponseBody
 	JSONObject getActivityList(String userId){
+		String username = "";//用户昵称
 		JSONObject json = new JSONObject();  
 		try{
 			List<Activity> actList = activityService.findActList(userId);
-			json.putAll(json.fromObject(successcode));
-			json.put("actList", actList);
+			username = userInfoService.findUsernameByUserId(userId);
+			
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(actList,config);  
+
+	        json.putAll(json.fromObject(successcode));
+	        json.put("actList", array.toString());
+	        json.put("username", username);
+			
 			return json;
 		}catch(MySQLException sqle){
 			return json.fromObject(new StatusCode(10001, "Database Error"));
@@ -127,10 +147,16 @@ public class ActivityController extends BaseController {
 		JSONObject json = new JSONObject();  
 		try{
 			List<Activity> activities = activityService.findActByUserId(userId);
-			System.out.println(activities.get(0).getActBeginTime());
 			List<Activity> actScheduleList = activityService.findActScheduleList(userId);
+			
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(actScheduleList,config);  
+			
 			json.putAll(json.fromObject(successcode));
-			json.put("actScheduleList", actScheduleList);
+			json.put("actScheduleList", array.toString());
 			return json;
 		}catch(MySQLException sqle){
 			return json.fromObject(new StatusCode(10001, "Database Error"));
@@ -149,9 +175,16 @@ public class ActivityController extends BaseController {
 		JSONObject json = new JSONObject();  
 		try{
 			List<Activity> actList= activityService.findActByKeyword(userId,keyword);
+			
+			JsonConfig config = new JsonConfig();  
+	        JsonDateValueProcessor jsonValueProcessor = new JsonDateValueProcessor();  
+	        config.registerJsonValueProcessor(Date.class, jsonValueProcessor);  
+	        JSONArray array = new JSONArray();  
+	        array = array.fromObject(actList,config);  
+			
 			System.out.println(actList.size());
 			json.putAll(json.fromObject(successcode));
-			json.put("actList", actList);
+			json.put("actList", array.toString());
 			return json;
 		}catch(MySQLException sqle){
 			return json.fromObject(new StatusCode(10001, "Database Error"));

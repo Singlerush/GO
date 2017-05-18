@@ -1,6 +1,7 @@
 package com.comingo.domain;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 public class UserInfo {
 	private String userId;
@@ -11,7 +12,7 @@ public class UserInfo {
 	private String mobile;
 	private String email;
 	private int userType;
-	private Timestamp registerTime;
+	private Date registerTime;
 	public String getUserId() {
 		return userId;
 	}
@@ -61,10 +62,10 @@ public class UserInfo {
 	public void setUserType(int userType) {
 		this.userType = userType;
 	}
-	public Timestamp getRegisterTime() {
+	public Date getRegisterTime() {
 		return registerTime;
 	}
-	public void setRegisterTime(Timestamp registerTime) {
+	public void setRegisterTime(Date registerTime) {
 		this.registerTime = registerTime;
 	}
 	

@@ -24,4 +24,5 @@ public interface UserInfoService {
 	public UserInfo findUserByMobileAndPSW(String mobile,String password);//根据用户名和密码查找用户，并返回用户id
 	public UserInfo findUserById(String userId);
 	public void updateUserInfo(com.comingo.domain.UserInfo userInfo)throws MySQLException;//更新个人用户
+	public String findUsernameByUserId(String userId);//通过用户Id查找用户名称
 }
