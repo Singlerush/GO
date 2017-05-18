@@ -44,9 +44,6 @@ public class OrgInfoServiceImpl implements OrgInfoService {
 		userInfo.setProfilePic(orgInfo.getUserInfo().getProfilePic());
 		userInfo.setBirthday(orgInfo.getUserInfo().getBirthday());
 		userInfo.setEmail(orgInfo.getUserInfo().getEmail());
-		if ((userInfoDao.findOrgByEmail(userInfo.getEmail()) != null)) {
-			throw new RuntimeException("该邮箱已经被注册");
-		}
 		userInfo.setMobile(orgInfo.getUserInfo().getMobile());
 		userInfo.setUserType(1);
 		userInfo.setRegisterTime(new Timestamp(new Date().getTime()));

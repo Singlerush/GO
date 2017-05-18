@@ -42,11 +42,16 @@ public class UserInfoController extends BaseController {
 	JSONObject sayPOST(UserInfo userInfo) {
 		JSONObject json = new JSONObject();
 		try {
+			if(userInfoService.findUserByMobile(userInfo.getMobile())!=null){
+				throw new ExistenceException();
+			}
 			userInfoService.insert(userInfo);
 			json.putAll(json.fromObject(successcode));
 			return json;
 		} catch (MySQLException sqle) {
 			return json.fromObject(new StatusCode(10001, "Database Error"));
+		}catch(ExistenceException e){
+			return json.fromObject(new StatusCode(10009, "Already Existence"));
 		}
 	}
 	/**

@@ -89,9 +89,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 		map.put("mobile", mobile);
 		map.put("password", password);
 		UserInfo userInfo = userInfoDao.findUserByMobileAndPSW(map);
-		if(userInfo==null){
-			throw new RuntimeException("找不到用户");
-		}
 		return userInfo;
 	}
 
